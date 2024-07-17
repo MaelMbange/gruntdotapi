@@ -1,12 +1,11 @@
 name: gruntdotapi
 description: A package to deal with halo infinite made by gruntdotapi - Zeny
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/MaelMbange/gruntdotapi
 
 environment:
   sdk: ^3.3.0
 
-# Add regular dependencies here.
 dependencies:
   http: ^1.2.1
 
