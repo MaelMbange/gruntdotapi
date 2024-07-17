@@ -29,23 +29,23 @@ class Metadata {
   Metadata({required this.token});
 
   Future<void> load() async {
-    await _loadMedals();
-    await _loadCategories();
-    await _loadEngineVariants();
-    await _loadMaps();
-    await _loadCurrencies();
-    await _loadCareerRanks();
-    await _loadManufacturers();
-    await _loadWeaklyReward();
-    await _loadSeasons();
-    await _loadTeams();
+    await loadMedals();
+    await loadCategories();
+    await loadEngineVariants();
+    await loadMaps();
+    await loadCurrencies();
+    await loadCareerRanks();
+    await loadManufacturers();
+    await loadWeaklyReward();
+    await loadSeasons();
+    await loadTeams();
   }
 
   void setToken(String token) {
     this.token = token;
   }
 
-  Future<dynamic> _loadMedals() async {
+  Future<dynamic> loadMedals() async {
     var response = await net.get(net.medalsUrl, token: token);
     medals = (response['data'] as List)
         .map<MMedal>((e) => MMedal.fromJson(e))
@@ -53,7 +53,7 @@ class Metadata {
     return medals;
   }
 
-  Future<dynamic> _loadCategories() async {
+  Future<dynamic> loadCategories() async {
     var response = await net.get(net.categoriesUrl, token: token);
     categories = (response['data'] as List)
         .map<Category>((e) => Category.fromJson(e))
@@ -61,7 +61,7 @@ class Metadata {
     return categories;
   }
 
-  Future<dynamic> _loadEngineVariants() async {
+  Future<dynamic> loadEngineVariants() async {
     var response = await net.get(net.engineVariantsUrl, token: token);
     engineVariants = (response['data'] as List)
         .map<Enginevariant>((e) => Enginevariant.fromJson(e))
@@ -69,7 +69,7 @@ class Metadata {
     return engineVariants;
   }
 
-  Future<dynamic> _loadMaps() async {
+  Future<dynamic> loadMaps() async {
     var response = await net.get(net.mapsUrl, token: token);
     maps = (response['data'] as List)
         .map<MMapClass>((e) => MMapClass.fromJson(e))
@@ -77,7 +77,7 @@ class Metadata {
     return maps;
   }
 
-  Future<dynamic> _loadCurrencies() async {
+  Future<dynamic> loadCurrencies() async {
     var response = await net.get(net.currenciesUrl, token: token);
     currencies = (response['data'] as List)
         .map<Currency>((e) => Currency.fromJson(e))
@@ -85,7 +85,7 @@ class Metadata {
     return currencies;
   }
 
-  Future<dynamic> _loadCareerRanks() async {
+  Future<dynamic> loadCareerRanks() async {
     var response = await net.get(net.careerRanksUrl, token: token);
     careerRanks = (response['data'] as List)
         .map<CareerRank>((e) => CareerRank.fromJson(e))
@@ -93,7 +93,7 @@ class Metadata {
     return careerRanks;
   }
 
-  Future<dynamic> _loadManufacturers() async {
+  Future<dynamic> loadManufacturers() async {
     var response = await net.get(net.manufacturerUrl, token: token);
     manufacturers = (response['data'] as List)
         .map<Manufacturer>((e) => Manufacturer.fromJson(e))
@@ -101,14 +101,14 @@ class Metadata {
     return manufacturers;
   }
 
-  Future<dynamic> _loadWeaklyReward() async {
+  Future<dynamic> loadWeaklyReward() async {
     var response = await net.get(net.weeklyRewardUrl, token: token);
     weaklyReward = WeaklyReward.fromJson(response['data']);
 
     return weaklyReward;
   }
 
-  Future<dynamic> _loadSeasons() async {
+  Future<dynamic> loadSeasons() async {
     var response = await net.get(net.seasonsUrl, token: token);
     seasons = (response['data'] as List)
         .map<MSeason>((e) => MSeason.fromJson(e))
@@ -116,7 +116,7 @@ class Metadata {
     return seasons;
   }
 
-  Future<dynamic> _loadTeams() async {
+  Future<dynamic> loadTeams() async {
     var response = await net.get(net.teamsUrl, token: token);
     teams = (response['data'] as List)
         .map<MTeam>((e) => MTeam.fromJson(e))
