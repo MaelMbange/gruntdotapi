@@ -12,19 +12,19 @@ import 'src/network.dart' as net;
 class Metadata {
   String token = '';
 
-  List<Category>? categories;
-  List<Enginevariant>? engineVariants;
+  List<Category> categories = [];
+  List<Enginevariant> engineVariants = [];
 
-  List<MMapClass>? maps;
-  List<Currency>? currencies;
-  List<CareerRank>? careerRanks;
-  List<Manufacturer>? manufacturers;
+  List<MMapClass> maps = [];
+  List<Currency> currencies = [];
+  List<CareerRank> careerRanks = [];
+  List<Manufacturer> manufacturers = [];
 
   WeaklyReward? weaklyReward;
 
-  List<MSeason>? seasons;
-  List<MTeam>? teams;
-  List<MMedal>? medals;
+  List<MSeason> seasons = [];
+  List<MTeam> teams = [];
+  List<MMedal> medals = [];
 
   Metadata({required this.token});
 
