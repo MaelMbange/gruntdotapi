@@ -3,6 +3,7 @@ library;
 import 'components/details.dart';
 import 'components/entity.dart';
 import 'components/time_duration.dart';
+import 'package:gruntdotapi/src/network.dart' as net;
 
 abstract class MatchDefaults {
   final String id;
@@ -144,6 +145,23 @@ class Match extends MatchDefaults {
         'started_at': startedAt.toIso8601String(),
         'ended_at': endedAt.toIso8601String(),
       };
+
+  Future<dynamic> getMoreInfo(String token) async {
+    var matchStats = await net
+        .get(net.matchStatsUrl.replaceAll('{matchId}', id), token: token);
+    return MatchStats.fromJson(matchStats['data']);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is Match) return id == other.id;
+
+    return false;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 
   @override
   String toString() =>

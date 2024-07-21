@@ -7,7 +7,6 @@ import 'package:gruntdotapi/config.dart';
 void main() async {
   test1();
 }
-// content of the test1 function
 //{
 //    "id": 3233952928,
 //    "name": "Killjoy",
@@ -25,22 +24,18 @@ void main() async {
 //    }
 // }
 
+//Loading the metadata of the medals
 Future<void> test1() async {
-  gruntdotapi.Metadata metadata = gruntdotapi.Metadata(token: token);
-
-  try {
-    await metadata.load();
-
-    print(jsonEncode(metadata.medals[0].toJson()));
-  } catch (e) {
-    print(e);
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+  if (!await accessToken.checkToken()) {
+    print('Token is invalid');
+    return;
   }
-}
+  print('Token is valid');
 
-Future<void> test2() async {
-  gruntdotapi.Statistics statistics =
-      gruntdotapi.Statistics(token: token, gamertag: 'icecurim');
+  gruntdotapi.Metadata metadata = gruntdotapi.Metadata();
 
-  await statistics.loadMatches();
-  print(statistics.matches);
+  metadata.loadMedals(accessToken.token).then((value) {
+    print(jsonEncode(metadata.medals[0].toJson()));
+  });
 }

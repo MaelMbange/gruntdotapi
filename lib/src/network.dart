@@ -41,7 +41,7 @@ const String matchStatsUrl =
     '$baseUrl/games/halo-infinite/stats/multiplayer/matches/{matchId}';
 
 const String matchesUrl =
-    '$baseUrl/games/halo-infinite/stats/multiplayer/players/{gamertag}/matches?&offset={offset}&type={type}';
+    '$baseUrl/games/halo-infinite/stats/multiplayer/players/{gamertag}/matches?&offset={offset}&type={type}&count={count}';
 
 Future<dynamic> get(String url, {String? token}) async {
   var response = await http.get(
@@ -52,6 +52,8 @@ Future<dynamic> get(String url, {String? token}) async {
   );
 
   if (response.statusCode == 200) {
+    print(
+        'request: status: success - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
     return jsonDecode(response.body);
   } else if (response.statusCode == 401) {
     throw UnAuthorizedException('Unauthorized - token used is not valid !');
