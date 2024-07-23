@@ -43,6 +43,10 @@ const String matchStatsUrl =
 const String matchesUrl =
     '$baseUrl/games/halo-infinite/stats/multiplayer/players/{gamertag}/matches?&offset={offset}&type={type}&count={count}';
 
+///filter in {all, ranked, social}
+const matchMadeUrl =
+    '$baseUrl/games/halo-infinite/stats/multiplayer/players/{gamertag}/service-record/matchmade?filter={filter}';
+
 Future<dynamic> get(String url, {String? token}) async {
   var response = await http.get(
     Uri.parse(url),

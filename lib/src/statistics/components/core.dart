@@ -16,7 +16,7 @@ class Core {
   Breakdown breakdown;
   num kdr;
   num kda;
-  TimeDuration averageLifeDuration;
+  TimeDuration? averageLifeDuration;
   Scores scores;
 
   Core({
@@ -27,7 +27,7 @@ class Core {
     required this.breakdown,
     required this.kdr,
     required this.kda,
-    required this.averageLifeDuration,
+    this.averageLifeDuration,
     required this.scores,
   });
 
@@ -39,8 +39,9 @@ class Core {
         breakdown: Breakdown.fromJson(json['breakdown']),
         kdr: json['kdr'] as num,
         kda: json['kda'] as num,
-        averageLifeDuration:
-            TimeDuration.fromJson(json['average_life_duration']),
+        averageLifeDuration: json['average_life_duration'] != null
+            ? TimeDuration.fromJson(json['average_life_duration'])
+            : null,
         scores: Scores.fromJson(json['scores']),
       );
 
@@ -52,7 +53,7 @@ class Core {
         'breakdown': breakdown.toJson(),
         'kdr': kdr,
         'kda': kda,
-        'average_life_duration': averageLifeDuration.toJson(),
+        'average_life_duration': averageLifeDuration?.toJson(),
         'scores': scores.toJson(),
       };
 

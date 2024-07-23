@@ -12,7 +12,7 @@ class Statistics {
         net.matchesUrl
             .replaceAll('{gamertag}', gamertag)
             .replaceAll('{type}', type)
-            .replaceAll('{offset}', '0')
+            .replaceAll('{offset}', offset.toString())
             .replaceAll('{count}', count.toString()),
         token: token);
 
@@ -64,5 +64,16 @@ class Statistics {
 
     matches.insertAll(0, s3.toList());
     return this;
+  }
+
+  Future<MatchMade> loadMatchMade(String token, String gamertag,
+      {String filter = 'all'}) async {
+    var response = await net.get(
+        net.matchMadeUrl
+            .replaceAll('{gamertag}', gamertag)
+            .replaceAll('{filter}', filter),
+        token: token);
+
+    return MatchMade.fromJson(response['data']);
   }
 }

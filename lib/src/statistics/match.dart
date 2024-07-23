@@ -1,9 +1,11 @@
 library;
 
-import 'components/details.dart';
-import 'components/entity.dart';
-import 'components/time_duration.dart';
+import 'package:gruntdotapi/gruntdotapi.dart';
+import 'package:gruntdotapi/src/statistics/export.dart';
+
 import 'package:gruntdotapi/src/network.dart' as net;
+
+part 'match_ext_1.dart';
 
 abstract class MatchDefaults {
   final String id;
