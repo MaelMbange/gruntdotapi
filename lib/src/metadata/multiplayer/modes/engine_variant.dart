@@ -7,13 +7,13 @@ class Enginevariant {
   final String id;
   final String name;
   final String hash;
-  final String? icon;
+  final String icon;
 
   Enginevariant({
     required this.id,
     required this.name,
     required this.hash,
-    this.icon,
+    required this.icon,
   });
 
   factory Enginevariant.fromJson(Map<String, dynamic> json) => Enginevariant(

@@ -5,11 +5,22 @@ import 'package:gruntdotapi/gruntdotapi.dart' as gruntdotapi;
 import 'package:gruntdotapi/config.dart';
 
 void main() async {
+  // test0();
   // test1();
-  // test2();
-  // test3();
-  // test4();
+  test2();
+  test3();
+  test4();
   test5();
+}
+
+Future<void> test0() async {
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+
+  gruntdotapi.Metadata metadata = gruntdotapi.Metadata();
+
+  metadata.loadAll(accessToken.token).then((value) {
+    print(metadata);
+  });
 }
 
 //{

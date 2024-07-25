@@ -12,7 +12,9 @@ class Statistics {
             .replaceAll('{count}', count.toString()),
         token: token);
 
-    return (response as List).map<Match>((e) => Match.fromJson(e)).toList();
+    return (response['data'] as List)
+        .map<Match>((e) => Match.fromJson(e))
+        .toList();
   }
 
   static Future<MatchMade> loadGlobalStatistics(String token, String gamertag,
@@ -23,7 +25,7 @@ class Statistics {
             .replaceAll('{filter}', filter),
         token: token);
 
-    return MatchMade.fromJson(response);
+    return MatchMade.fromJson(response['data']);
   }
 
   static Future<Appearance> loadAppearance(
@@ -32,13 +34,15 @@ class Statistics {
         net.appearanceUrl.replaceAll('{gamertag}', gamertag),
         token: token);
 
-    return Appearance.fromJson(response);
+    return Appearance.fromJson(response['data']);
   }
 
   static Future<List<CSRS>> loadCSRS(String token, String gamertag) async {
     var response = await net.get(net.csrUrl.replaceAll('{gamertag}', gamertag),
         token: token);
 
-    return (response as List).map<CSRS>((e) => CSRS.fromJson(e)).toList();
+    return (response['data'] as List)
+        .map<CSRS>((e) => CSRS.fromJson(e))
+        .toList();
   }
 }

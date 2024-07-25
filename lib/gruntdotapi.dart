@@ -7,5 +7,6 @@ export 'src/statistics/export.dart';
 export 'src/api_key.dart';
 export 'src/exception.dart';
 export 'src/appearance.dart';
+export 'src/network.dart';
 export 'src/statistics.dart';
 export 'src/metadata.dart';
