@@ -1,5 +1,7 @@
 library;
 
+part 'csrs.dart';
+
 class Progression {
   SMatchCSRInfo? csr;
 
@@ -18,8 +20,8 @@ class Progression {
 }
 
 class SMatchCSRInfo {
-  SCSR preMatch;
-  SCSR postMatch;
+  CSR preMatch;
+  CSR postMatch;
 
   SMatchCSRInfo({
     required this.preMatch,
@@ -27,8 +29,8 @@ class SMatchCSRInfo {
   });
 
   factory SMatchCSRInfo.fromJson(Map<String, dynamic> json) => SMatchCSRInfo(
-        preMatch: SCSR.fromJson(json['pre_match']),
-        postMatch: SCSR.fromJson(json['post_match']),
+        preMatch: CSR.fromJson(json['pre_match']),
+        postMatch: CSR.fromJson(json['post_match']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +42,7 @@ class SMatchCSRInfo {
   String toString() => 'pre_match: $preMatch, post_match: $postMatch';
 }
 
-class SCSR {
+class CSR {
   int value;
   int measurementMatchesRemaining;
   String tier;
@@ -54,7 +56,7 @@ class SCSR {
   int initialDemotionProtectionMatches;
   String tierImageUrl;
 
-  SCSR({
+  CSR({
     required this.value,
     required this.measurementMatchesRemaining,
     required this.tier,
@@ -69,7 +71,7 @@ class SCSR {
     required this.tierImageUrl,
   });
 
-  factory SCSR.fromJson(Map<String, dynamic> json) => SCSR(
+  factory CSR.fromJson(Map<String, dynamic> json) => CSR(
         value: json['value'],
         measurementMatchesRemaining: json['measurement_matches_remaining'],
         tier: json['tier'],

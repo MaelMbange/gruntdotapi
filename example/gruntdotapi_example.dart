@@ -3,12 +3,13 @@ import 'dart:convert';
 
 import 'package:gruntdotapi/gruntdotapi.dart' as gruntdotapi;
 import 'package:gruntdotapi/config.dart';
-import 'package:gruntdotapi/src/statistics/components/mode.dart';
 
 void main() async {
   // test1();
   // test2();
-  test3();
+  // test3();
+  // test4();
+  test5();
 }
 
 //{
@@ -44,50 +45,40 @@ Future<void> test1() async {
   });
 }
 
-// {
-//   "stronghold_captures": 0,
-//   "stronghold_defensive_kills": 0,
-//   "stronghold_occupation_time": {
-//     "seconds": 13,
-//     "human": "00h 00m 13s"
-//   },
-//   "stronghold_offensive_kills": 0,
-//   "stronghold_scoring_ticks": 5,
-//   "stronghold_secures": 0,
-//   "assists": 2,
-//   "deaths": 12,
-//   "kda": -2.33,
-//   "kills": 9
-// }
-
-//Loading the metadata of macthes
+//Loading the metadata of matches
 Future<void> test2() async {
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
-  // if (!await accessToken.checkToken()) {
-  //   print('Token is invalid');
-  //   return;
-  // }
-  print('Token is valid');
 
-  gruntdotapi.Statistics statistics = gruntdotapi.Statistics();
+  List<gruntdotapi.Match> matches =
+      await gruntdotapi.Statistics.loadMatches(accessToken.token, 'icecurim');
 
-  await statistics.loadMatches(accessToken.token, 'icecurim',
-      count: 1, offset: 0);
-
-  print(jsonEncode(statistics.matches[0].player.stats.mode?.toJson()));
+  // matches.sort((a, b) => b.startedAt.compareTo(a.startedAt));
+  matches.sort();
+  for (var element in matches) {
+    print(
+        '${element.details.ugcGameVariant.name.toString().padRight(25)} : ${element.details.playlist.ranked.toString().padRight(5)} : ${element.startedAt.day}/${element.startedAt.month}/${element.startedAt.year} - ${element.startedAt.hour.toString().padLeft(2, '0')}h${element.startedAt.minute.toString().padLeft(2, '0')}');
+  }
 }
 
 Future<void> test3() async {
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
-  // if (!await accessToken.checkToken()) {
-  //   print('Token is invalid');
-  //   return;
-  // }
-  // print('Token is valid');
 
-  gruntdotapi.Statistics statistics = gruntdotapi.Statistics();
-
-  await statistics
-      .loadMatchMade(accessToken.token, 'icecurim', filter: 'ranked')
+  await gruntdotapi.Statistics.loadGlobalStatistics(
+          accessToken.token, 'icecurim',
+          filter: 'ranked')
       .then((value) => print(jsonEncode(value.toJson())));
+}
+
+Future<void> test4() async {
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+
+  await gruntdotapi.Statistics.loadCSRS(accessToken.token, 'icecurim')
+      .then((value) => value.forEach(print));
+}
+
+Future<void> test5() async {
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+
+  await gruntdotapi.Statistics.loadAppearance(accessToken.token, 'icecurim')
+      .then(print);
 }

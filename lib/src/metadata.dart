@@ -1,4 +1,4 @@
-import 'export.dart';
+import 'metadata/export.dart';
 import 'package:gruntdotapi/src/network.dart' as net;
 
 class Metadata {
@@ -31,23 +31,20 @@ class Metadata {
 
   Future<List<MMedal>> loadMedals(String token) async {
     var response = await net.get(net.medalsUrl, token: token);
-    medals = (response['data'] as List)
-        .map<MMedal>((e) => MMedal.fromJson(e))
-        .toList();
+    medals = (response as List).map<MMedal>((e) => MMedal.fromJson(e)).toList();
     return medals;
   }
 
   Future<List<Category>> loadCategories(String token) async {
     var response = await net.get(net.categoriesUrl, token: token);
-    categories = (response['data'] as List)
-        .map<Category>((e) => Category.fromJson(e))
-        .toList();
+    categories =
+        (response as List).map<Category>((e) => Category.fromJson(e)).toList();
     return categories;
   }
 
   Future<List<Enginevariant>> loadEngineVariants(String token) async {
     var response = await net.get(net.engineVariantsUrl, token: token);
-    engineVariants = (response['data'] as List)
+    engineVariants = (response as List)
         .map<Enginevariant>((e) => Enginevariant.fromJson(e))
         .toList();
     return engineVariants;
@@ -55,7 +52,7 @@ class Metadata {
 
   Future<List<MMapClass>> loadMaps(String token) async {
     var response = await net.get(net.mapsUrl, token: token);
-    maps = (response['data'] as List)
+    maps = (response as List)
         .map<MMapClass>((e) => MMapClass.fromJson(e))
         .toList();
     return maps;
@@ -63,15 +60,14 @@ class Metadata {
 
   Future<List<Currency>> loadCurrencies(String token) async {
     var response = await net.get(net.currenciesUrl, token: token);
-    currencies = (response['data'] as List)
-        .map<Currency>((e) => Currency.fromJson(e))
-        .toList();
+    currencies =
+        (response as List).map<Currency>((e) => Currency.fromJson(e)).toList();
     return currencies;
   }
 
   Future<List<CareerRank>> loadCareerRanks(String token) async {
     var response = await net.get(net.careerRanksUrl, token: token);
-    careerRanks = (response['data'] as List)
+    careerRanks = (response as List)
         .map<CareerRank>((e) => CareerRank.fromJson(e))
         .toList();
     return careerRanks;
@@ -79,7 +75,7 @@ class Metadata {
 
   Future<List<Manufacturer>> loadManufacturers(String token) async {
     var response = await net.get(net.manufacturerUrl, token: token);
-    manufacturers = (response['data'] as List)
+    manufacturers = (response as List)
         .map<Manufacturer>((e) => Manufacturer.fromJson(e))
         .toList();
     return manufacturers;
@@ -87,24 +83,21 @@ class Metadata {
 
   Future<WeaklyReward?> loadWeaklyReward(String token) async {
     var response = await net.get(net.weeklyRewardUrl, token: token);
-    weaklyReward = WeaklyReward.fromJson(response['data']);
+    weaklyReward = WeaklyReward.fromJson(response);
 
     return weaklyReward;
   }
 
   Future<List<MSeason>> loadSeasons(String token) async {
     var response = await net.get(net.seasonsUrl, token: token);
-    seasons = (response['data'] as List)
-        .map<MSeason>((e) => MSeason.fromJson(e))
-        .toList();
+    seasons =
+        (response as List).map<MSeason>((e) => MSeason.fromJson(e)).toList();
     return seasons;
   }
 
   Future<List<MTeam>> loadTeams(String token) async {
     var response = await net.get(net.teamsUrl, token: token);
-    teams = (response['data'] as List)
-        .map<MTeam>((e) => MTeam.fromJson(e))
-        .toList();
+    teams = (response as List).map<MTeam>((e) => MTeam.fromJson(e)).toList();
     return teams;
   }
 

@@ -18,4 +18,3 @@ export 'components/shots.dart';
 export 'components/stats.dart';
 export 'components/summary.dart';
 export 'components/time_duration.dart';
-export 'statistics.dart';

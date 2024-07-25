@@ -8,4 +8,3 @@ export 'multiplayer/team.dart';
 export 'multiplayer/weakly_reward.dart';
 export 'multiplayer/modes/category.dart';
 export 'multiplayer/modes/engine_variant.dart';
-export 'metadata.dart';

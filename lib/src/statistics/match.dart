@@ -2,12 +2,11 @@ library;
 
 import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/src/statistics/export.dart';
-
 import 'package:gruntdotapi/src/network.dart' as net;
 
 part 'match_ext_1.dart';
 
-abstract class MatchDefaults {
+abstract class MatchDefaults implements Comparable<MatchDefaults> {
   final String id;
   final SDetails details;
   final MatchProperties properties;
@@ -26,6 +25,23 @@ abstract class MatchDefaults {
     required this.startedAt,
     required this.endedAt,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is MatchDefaults) return id == other.id;
+
+    return false;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
+  int compareTo(MatchDefaults other) {
+    if (this == other) return 0;
+    return other.startedAt.compareTo(startedAt);
+  }
 
   @override
   String toString() =>
@@ -154,16 +170,17 @@ class Match extends MatchDefaults {
     return MatchStats.fromJson(matchStats['data']);
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is Match) return id == other.id;
+  bool operator <(Match other) =>
+      this != other && startedAt.compareTo(other.startedAt) < 0;
 
-    return false;
-  }
+  bool operator >(Match other) =>
+      this != other && startedAt.compareTo(other.startedAt) > 0;
 
-  @override
-  int get hashCode => id.hashCode;
+  bool operator <=(Match other) =>
+      this != other && startedAt.compareTo(other.startedAt) <= 0;
+
+  bool operator >=(Match other) =>
+      this != other && startedAt.compareTo(other.startedAt) >= 0;
 
   @override
   String toString() =>
@@ -210,6 +227,18 @@ class MatchStats extends MatchDefaults {
         'started_at': startedAt.toIso8601String(),
         'ended_at': endedAt.toIso8601String(),
       };
+
+  bool operator <(MatchStats other) =>
+      this != other && startedAt.compareTo(other.startedAt) < 0;
+
+  bool operator >(MatchStats other) =>
+      this != other && startedAt.compareTo(other.startedAt) > 0;
+
+  bool operator <=(MatchStats other) =>
+      this != other && startedAt.compareTo(other.startedAt) <= 0;
+
+  bool operator >=(MatchStats other) =>
+      this != other && startedAt.compareTo(other.startedAt) >= 0;
 
   @override
   String toString() =>

@@ -66,26 +66,20 @@ class DefaultMode {
 
   factory DefaultMode.fromJson(Map<String, dynamic> json) {
     if (json['flag_captures'] != null) {
-      print('Mode -> CTF');
       return CTF.fromJson(json);
     }
     if (json['extraction_conversions_completed'] != null) {
-      print('Mode -> extraction');
       return Extraction.fromJson(json);
     }
     if (json['skull_grabs'] != null) {
-      print('Mode -> Oddball');
       return Oddball.fromJson(json);
     }
     if (json['zone_captures'] != null) {
-      print('Mode -> Zone');
       return Zone.fromJson(json);
     }
     if (json['stronghold_captures'] != null) {
-      print('Mode -> Stronghold');
       return Stronghold.fromJson(json);
     }
-    print('Mode -> DefaultMode');
     return DefaultMode(content: json);
   }
 
