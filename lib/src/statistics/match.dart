@@ -1,7 +1,6 @@
 library;
 
 import 'package:gruntdotapi/gruntdotapi.dart';
-import 'package:gruntdotapi/src/statistics/export.dart';
 import 'package:gruntdotapi/src/network.dart' as net;
 
 part 'match_ext_1.dart';
