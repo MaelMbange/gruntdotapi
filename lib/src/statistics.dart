@@ -17,6 +17,13 @@ class Statistics {
         .toList();
   }
 
+  static Future<MatchStats> loadMatchStats(String token, String matchId) async {
+    var response = await net
+        .get(net.matchStatsUrl.replaceAll('{matchId}', matchId), token: token);
+
+    return MatchStats.fromJson(response['data']);
+  }
+
   static Future<MatchMade> loadGlobalStatistics(String token, String gamertag,
       {String filter = 'all'}) async {
     var response = await net.get(

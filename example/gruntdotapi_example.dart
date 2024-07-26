@@ -14,6 +14,7 @@ void main() async {
 }
 
 Future<void> test0() async {
+  print('test->0');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   gruntdotapi.Metadata metadata = gruntdotapi.Metadata();
@@ -42,6 +43,7 @@ Future<void> test0() async {
 
 //Loading the metadata of the medals
 Future<void> test1() async {
+  print('test->1');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
   if (!await accessToken.checkToken()) {
     print('Token is invalid');
@@ -58,6 +60,7 @@ Future<void> test1() async {
 
 //Loading the metadata of matches
 Future<void> test2() async {
+  print('test->2');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   List<gruntdotapi.Match> matches =
@@ -72,6 +75,7 @@ Future<void> test2() async {
 }
 
 Future<void> test3() async {
+  print('test->3');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   await gruntdotapi.Statistics.loadGlobalStatistics(
@@ -81,6 +85,7 @@ Future<void> test3() async {
 }
 
 Future<void> test4() async {
+  print('test->4');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   await gruntdotapi.Statistics.loadCSRS(accessToken.token, 'icecurim')
@@ -88,6 +93,7 @@ Future<void> test4() async {
 }
 
 Future<void> test5() async {
+  print('test->5');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   await gruntdotapi.Statistics.loadAppearance(accessToken.token, 'icecurim')

@@ -164,7 +164,7 @@ class Match extends MatchDefaults {
         'ended_at': endedAt.toIso8601String(),
       };
 
-  Future<dynamic> getMoreInfo(String token) async {
+  Future<dynamic> getMoreStats(String token) async {
     var matchStats = await net
         .get(net.matchStatsUrl.replaceAll('{matchId}', id), token: token);
     return MatchStats.fromJson(matchStats['data']);
