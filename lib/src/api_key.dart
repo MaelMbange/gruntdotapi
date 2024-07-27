@@ -19,7 +19,7 @@ class ApiKey {
 
   Future<bool> checkToken() async {
     try {
-      await net.get(net.medalsUrl, token: token);
+      await net.get(net.appearanceUrl, token: token);
       _isValid = true;
     } on UnAuthorizedException {
       _isValid = false;
