@@ -15,3 +15,12 @@ class TooManyRequestsException implements Exception {
   @override
   String toString() => message;
 }
+
+class BadArgumentException implements Exception {
+  final String message;
+
+  BadArgumentException(this.message);
+
+  @override
+  String toString() => message;
+}

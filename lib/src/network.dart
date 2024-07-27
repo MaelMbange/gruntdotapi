@@ -66,6 +66,9 @@ Future<dynamic> get(String url, {String? token}) async {
     print(
         'request: status: success - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
     return jsonDecode(response.body);
+  } else if (response.statusCode == 400) {
+    throw BadArgumentException(
+        'Bad argument - ${jsonDecode(response.body)['message']}');
   } else if (response.statusCode == 401) {
     throw UnAuthorizedException('Unauthorized - token used is not valid !');
   } else if (response.statusCode == 429) {
