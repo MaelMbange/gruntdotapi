@@ -53,7 +53,7 @@ Future<void> test1() async {
 
   gruntdotapi.Metadata metadata = gruntdotapi.Metadata();
 
-  metadata.loadMedals(accessToken.token).then((value) {
+  metadata.loadMedals(token: accessToken.token).then((value) {
     print(jsonEncode(metadata.medals[0].toJson()));
   });
 }
@@ -63,8 +63,8 @@ Future<void> test2() async {
   print('test->2');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
-  List<gruntdotapi.Match> matches =
-      await gruntdotapi.Statistics.loadMatches(accessToken.token, 'icecurim');
+  List<gruntdotapi.Match> matches = await gruntdotapi.Statistics.loadMatches(
+      token: accessToken.token, gamertag: 'icecurim');
 
   // matches.sort((a, b) => b.startedAt.compareTo(a.startedAt));
   matches.sort();
@@ -79,8 +79,7 @@ Future<void> test3() async {
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
   await gruntdotapi.Statistics.loadGlobalStatistics(
-          accessToken.token, 'icecurim',
-          filter: 'ranked')
+          token: accessToken.token, gamertag: 'icecurim', filter: 'ranked')
       .then((value) => print(jsonEncode(value.toJson())));
 }
 
@@ -88,7 +87,8 @@ Future<void> test4() async {
   print('test->4');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
-  await gruntdotapi.Statistics.loadCSRS(accessToken.token, 'icecurim')
+  await gruntdotapi.Statistics.loadCSRS(
+          token: accessToken.token, gamertag: 'icecurim')
       .then((value) => value.forEach(print));
 }
 
@@ -96,6 +96,7 @@ Future<void> test5() async {
   print('test->5');
   gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
 
-  await gruntdotapi.Statistics.loadAppearance(accessToken.token, 'icecurim')
+  await gruntdotapi.Statistics.loadAppearance(
+          token: accessToken.token, gamertag: 'icecurim')
       .then(print);
 }
