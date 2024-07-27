@@ -2,6 +2,7 @@ import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/src/network.dart' as net;
 
 class Statistics {
+  /// [type] in {all, matchmaking, custom, local}
   static Future<List<Match>> loadMatches(String token, String gamertag,
       {String type = 'matchmaking', int offset = 0, int count = 25}) async {
     var response = await net.get(
@@ -24,6 +25,7 @@ class Statistics {
     return MatchStats.fromJson(response['data']);
   }
 
+  ///[filter] in {all, ranked, social}
   static Future<MatchMade> loadGlobalStatistics(String token, String gamertag,
       {String filter = 'all'}) async {
     var response = await net.get(
