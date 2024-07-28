@@ -1,5 +1,5 @@
 import 'package:gruntdotapi/gruntdotapi.dart';
-import 'network.dart' as net;
+import 'network.dart';
 
 class ApiKey {
   String token = '';
@@ -19,7 +19,7 @@ class ApiKey {
 
   Future<bool> checkToken() async {
     try {
-      await net.get(net.appearanceUrl, token: token);
+      await Network.get(tokenVerificationUrl, token: token);
       _isValid = true;
     } on UnAuthorizedException {
       _isValid = false;

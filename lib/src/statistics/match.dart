@@ -1,7 +1,7 @@
 library;
 
 import 'package:gruntdotapi/gruntdotapi.dart';
-import 'package:gruntdotapi/src/network.dart' as net;
+import 'package:gruntdotapi/src/network.dart';
 
 part 'match_ext_1.dart';
 
@@ -164,8 +164,9 @@ class Match extends MatchDefaults {
       };
 
   Future<dynamic> getMoreStats(String token) async {
-    var matchStats = await net
-        .get(net.matchStatsUrl.replaceAll('{matchId}', id), token: token);
+    var matchStats = await Network.get(
+        matchStatsUrl.replaceAll('{matchId}', id),
+        token: token);
     return MatchStats.fromJson(matchStats['data']);
   }
 

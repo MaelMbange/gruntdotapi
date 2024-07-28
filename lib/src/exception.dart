@@ -9,8 +9,9 @@ class UnAuthorizedException implements Exception {
 
 class TooManyRequestsException implements Exception {
   final String message;
+  final DateTime retryAfter;
 
-  TooManyRequestsException(this.message);
+  TooManyRequestsException(this.message, this.retryAfter);
 
   @override
   String toString() => message;

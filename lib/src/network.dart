@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'exception.dart';
 
 const String baseUrl = 'https://grunt.api.dotapi.gg';
@@ -54,29 +55,63 @@ const csrUrl =
 const appearanceUrl =
     '$baseUrl/games/halo-infinite/appearance/players/{gamertag}/spartan-id';
 
-Future<dynamic> get(String url, {String? token}) async {
-  var response = await http.get(
-    Uri.parse(url),
-    headers: {
-      if (token != null) HttpHeaders.authorizationHeader: token,
-    },
-  );
+const tokenVerificationUrl = '$baseUrl/tooling/api/users/me';
 
-  if (response.statusCode == 200) {
-    print(
-        'request: status: success - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
-    return jsonDecode(response.body);
-  } else if (response.statusCode == 400) {
-    throw BadArgumentException(
-        'Bad argument - ${jsonDecode(response.body)['message']}');
-  } else if (response.statusCode == 401) {
-    throw UnAuthorizedException('Unauthorized - token used is not valid !');
-  } else if (response.statusCode == 429) {
-    var message = jsonDecode(response.body)['message'];
-    throw TooManyRequestsException('Too many requests - $message');
-  } else {
-    var message = jsonDecode(response.body)['message'];
-    throw Exception(
-        'request: status: failed - $message - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
+abstract class Network {
+  static int remainingRequests = 0;
+  static int maxRequests = 50;
+  static DateTime retryAfter = DateTime.now();
+
+  static Future<dynamic> get(String url, {String? token}) async {
+    try {
+      canAccessApi();
+    } catch (e) {
+      rethrow;
+    }
+
+    http.Response response = await http.get(
+      Uri.parse(url),
+      headers: {
+        if (token != null) HttpHeaders.authorizationHeader: token,
+      },
+    );
+
+    remainingRequests = int.parse(response.headers['ratelimit-remaining']!);
+    maxRequests = int.parse(response.headers['ratelimit-limit']!);
+
+    DateFormat dateFormat =
+        DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", "en_US");
+    retryAfter = dateFormat.parse(response.headers['ratelimit-reset']!);
+
+    if (response.statusCode == 200) {
+      print(
+          'request: status: success - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
+
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 400) {
+      throw BadArgumentException(
+          'Bad argument - ${jsonDecode(response.body)['message']}');
+    } else if (response.statusCode == 401) {
+      throw UnAuthorizedException('Unauthorized - token used is not valid !');
+    } else if (response.statusCode == 429) {
+      var message = jsonDecode(response.body)['message'];
+
+      throw TooManyRequestsException(
+          'Too many requests - $message', retryAfter);
+    } else {
+      var message = jsonDecode(response.body)['message'];
+      throw Exception(
+          'request: status: failed - $message - ${response.headers['ratelimit-remaining']}/${response.headers['ratelimit-limit']}');
+    }
+  }
+
+  static canAccessApi() {
+    if (remainingRequests <= 0) {
+      if (DateTime.now().isBefore(retryAfter)) {
+        throw TooManyRequestsException(
+            'Too many requests - retry after: ${DateTime.now().difference(retryAfter).inSeconds} seconds',
+            retryAfter);
+      }
+    }
   }
 }

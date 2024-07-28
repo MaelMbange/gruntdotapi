@@ -1,23 +1,22 @@
 import 'metadata/export.dart';
-import 'package:gruntdotapi/src/network.dart' as net;
+import 'package:gruntdotapi/src/network.dart';
 
-class Metadata {
-  List<Category> categories = [];
-  List<Enginevariant> engineVariants = [];
+abstract class Metadata {
+  static List<Category> categories = [];
+  static List<Enginevariant> engineVariants = [];
 
-  List<MMapClass> maps = [];
-  List<Currency> currencies = [];
-  List<CareerRank> careerRanks = [];
-  List<Manufacturer> manufacturers = [];
+  static List<MMapClass> maps = [];
+  static List<Currency> currencies = [];
+  static List<CareerRank> careerRanks = [];
+  static List<Manufacturer> manufacturers = [];
 
-  WeaklyReward? weaklyReward;
+  static WeaklyReward? weaklyReward;
 
-  List<MSeason> seasons = [];
-  List<MTeam> teams = [];
-  List<MMedal> medals = [];
+  static List<MSeason> seasons = [];
+  static List<MTeam> teams = [];
+  static List<MMedal> medals = [];
 
-  Future<void> loadAll(String token) async {
-    if (medals.isEmpty) await loadMedals(token: token);
+  static Future<void> loadAll(String token) async {
     if (categories.isEmpty) await loadCategories(token: token);
     if (engineVariants.isEmpty) await loadEngineVariants(token: token);
     if (maps.isEmpty) await loadMaps(token: token);
@@ -27,90 +26,121 @@ class Metadata {
     if (weaklyReward == null) await loadWeaklyReward(token: token);
     if (seasons.isEmpty) await loadSeasons(token: token);
     if (teams.isEmpty) await loadTeams(token: token);
+    if (medals.isEmpty) await loadMedals(token: token);
   }
 
-  Future<List<MMedal>> loadMedals({required String token}) async {
-    var response = await net.get(net.medalsUrl, token: token);
-    medals = (response['data'] as List)
-        .map<MMedal>((e) => MMedal.fromJson(e))
-        .toList();
-    return medals;
-  }
+  static Future<List<Category>> loadCategories({required String token}) async {
+    if (categories.isNotEmpty) return categories;
 
-  Future<List<Category>> loadCategories({required String token}) async {
-    var response = await net.get(net.categoriesUrl, token: token);
+    var response = await Network.get(categoriesUrl, token: token);
     categories = (response['data'] as List)
         .map<Category>((e) => Category.fromJson(e))
         .toList();
+
     return categories;
   }
 
-  Future<List<Enginevariant>> loadEngineVariants(
+  static Future<List<Enginevariant>> loadEngineVariants(
       {required String token}) async {
-    var response = await net.get(net.engineVariantsUrl, token: token);
+    if (engineVariants.isNotEmpty) return engineVariants;
+
+    var response = await Network.get(engineVariantsUrl, token: token);
     engineVariants = (response['data'] as List)
         .map<Enginevariant>((e) => Enginevariant.fromJson(e))
         .toList();
+
     return engineVariants;
   }
 
-  Future<List<MMapClass>> loadMaps({required String token}) async {
-    var response = await net.get(net.mapsUrl, token: token);
+  static Future<List<MMapClass>> loadMaps({required String token}) async {
+    if (maps.isNotEmpty) return maps;
+
+    var response = await Network.get(mapsUrl, token: token);
     maps = (response['data'] as List)
         .map<MMapClass>((e) => MMapClass.fromJson(e))
         .toList();
+
     return maps;
   }
 
-  Future<List<Currency>> loadCurrencies({required String token}) async {
-    var response = await net.get(net.currenciesUrl, token: token);
+  static Future<List<Currency>> loadCurrencies({required String token}) async {
+    if (currencies.isNotEmpty) return currencies;
+
+    var response = await Network.get(currenciesUrl, token: token);
     currencies = (response['data'] as List)
         .map<Currency>((e) => Currency.fromJson(e))
         .toList();
+
     return currencies;
   }
 
-  Future<List<CareerRank>> loadCareerRanks({required String token}) async {
-    var response = await net.get(net.careerRanksUrl, token: token);
+  static Future<List<CareerRank>> loadCareerRanks(
+      {required String token}) async {
+    if (careerRanks.isNotEmpty) return careerRanks;
+
+    var response = await Network.get(careerRanksUrl, token: token);
     careerRanks = (response['data'] as List)
         .map<CareerRank>((e) => CareerRank.fromJson(e))
         .toList();
+
     return careerRanks;
   }
 
-  Future<List<Manufacturer>> loadManufacturers({required String token}) async {
-    var response = await net.get(net.manufacturerUrl, token: token);
+  static Future<List<Manufacturer>> loadManufacturers(
+      {required String token}) async {
+    if (manufacturers.isNotEmpty) return manufacturers;
+
+    var response = await Network.get(manufacturerUrl, token: token);
     manufacturers = (response['data'] as List)
         .map<Manufacturer>((e) => Manufacturer.fromJson(e))
         .toList();
+
     return manufacturers;
   }
 
-  Future<WeaklyReward?> loadWeaklyReward({required String token}) async {
-    var response = await net.get(net.weeklyRewardUrl, token: token);
+  static Future<WeaklyReward?> loadWeaklyReward({required String token}) async {
+    if (weaklyReward != null) return weaklyReward;
+
+    var response = await Network.get(weeklyRewardUrl, token: token);
     weaklyReward = WeaklyReward.fromJson(response['data']);
 
     return weaklyReward;
   }
 
-  Future<List<MSeason>> loadSeasons({required String token}) async {
-    var response = await net.get(net.seasonsUrl, token: token);
+  static Future<List<MSeason>> loadSeasons({required String token}) async {
+    if (seasons.isNotEmpty) return seasons;
+
+    var response = await Network.get(seasonsUrl, token: token);
     seasons = (response['data'] as List)
         .map<MSeason>((e) => MSeason.fromJson(e))
         .toList();
+
     return seasons;
   }
 
-  Future<List<MTeam>> loadTeams({required String token}) async {
-    var response = await net.get(net.teamsUrl, token: token);
+  static Future<List<MTeam>> loadTeams({required String token}) async {
+    if (teams.isNotEmpty) return teams;
+
+    var response = await Network.get(teamsUrl, token: token);
     teams = (response['data'] as List)
         .map<MTeam>((e) => MTeam.fromJson(e))
         .toList();
+
     return teams;
   }
 
-  @override
-  String toString() {
+  static Future<List<MMedal>> loadMedals({required String token}) async {
+    if (medals.isNotEmpty) return medals;
+
+    var response = await Network.get(medalsUrl, token: token);
+    medals = (response['data'] as List)
+        .map<MMedal>((e) => MMedal.fromJson(e))
+        .toList();
+
+    return medals;
+  }
+
+  static bool isLoaded() {
     if (weaklyReward != null &&
         categories.isNotEmpty &&
         engineVariants.isNotEmpty &&
@@ -121,9 +151,8 @@ class Metadata {
         seasons.isNotEmpty &&
         teams.isNotEmpty &&
         medals.isNotEmpty) {
-      return 'All metadata loaded';
-    } else {
-      return 'All metadata not loaded';
+      return true;
     }
+    return false;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:gruntdotapi/gruntdotapi.dart';
-import 'package:gruntdotapi/src/network.dart' as net;
+import 'package:gruntdotapi/src/network.dart';
 
 class Statistics {
   /// [type] in {all, matchmaking, custom, local}
@@ -10,8 +10,8 @@ class Statistics {
     int offset = 0,
     int count = 25,
   }) async {
-    var response = await net.get(
-        net.matchesUrl
+    var response = await Network.get(
+        matchesUrl
             .replaceAll('{gamertag}', gamertag)
             .replaceAll('{type}', type)
             .replaceAll('{offset}', offset.toString())
@@ -27,8 +27,9 @@ class Statistics {
     required String token,
     required String matchId,
   }) async {
-    var response = await net
-        .get(net.matchStatsUrl.replaceAll('{matchId}', matchId), token: token);
+    var response = await Network.get(
+        matchStatsUrl.replaceAll('{matchId}', matchId),
+        token: token);
 
     return MatchStats.fromJson(response['data']);
   }
@@ -39,8 +40,8 @@ class Statistics {
     required String gamertag,
     String filter = 'all',
   }) async {
-    var response = await net.get(
-        net.matchMadeUrl
+    var response = await Network.get(
+        matchMadeUrl
             .replaceAll('{gamertag}', gamertag)
             .replaceAll('{filter}', filter),
         token: token);
@@ -52,8 +53,8 @@ class Statistics {
     required String token,
     required String gamertag,
   }) async {
-    var response = await net.get(
-        net.appearanceUrl.replaceAll('{gamertag}', gamertag),
+    var response = await Network.get(
+        appearanceUrl.replaceAll('{gamertag}', gamertag),
         token: token);
 
     return Appearance.fromJson(response['data']);
@@ -63,7 +64,7 @@ class Statistics {
     required String token,
     required String gamertag,
   }) async {
-    var response = await net.get(net.csrUrl.replaceAll('{gamertag}', gamertag),
+    var response = await Network.get(csrUrl.replaceAll('{gamertag}', gamertag),
         token: token);
 
     return (response['data'] as List)
