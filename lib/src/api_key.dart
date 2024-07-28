@@ -1,28 +1,34 @@
 import 'package:gruntdotapi/gruntdotapi.dart';
-import 'network.dart';
 
 class ApiKey {
-  String token = '';
-  bool _isValid = false;
+  String _token;
+  bool _isValid;
+
+  ApiKey({String accessToken = ''})
+      : _token = accessToken,
+        _isValid = false;
+
+  Future<void> updateToken(String token) async {
+    _token = token;
+    _isValid = false;
+    await isTokenValid();
+  }
+
+  String get token => _token;
+
   bool get isValid => _isValid;
 
-  ApiKey({this.token = ''});
-
-  dynamic setToken(String token) {
-    this.token = token;
-    return this;
-  }
-
-  String getToken() {
-    return token;
-  }
-
-  Future<bool> checkToken() async {
+  Future<bool> isTokenValid() async {
+    if (_isValid == true) return _isValid;
     try {
       await Network.get(tokenVerificationUrl, token: token);
       _isValid = true;
+      print('token is valid');
     } on UnAuthorizedException {
       _isValid = false;
+    } catch (e) {
+      _isValid = false;
+      rethrow;
     }
     return _isValid;
   }

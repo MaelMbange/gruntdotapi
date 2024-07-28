@@ -16,11 +16,12 @@ void main() async {
 Future<void> test0() async {
   try {
     print('test->0');
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
-
-    await gruntdotapi.Metadata.loadAll(accessToken.token).then((_) {
-      print(gruntdotapi.Metadata.isLoaded());
-    });
+    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+    if (await accessToken.isTokenValid()) {
+      await gruntdotapi.Metadata.loadAll(accessToken.token).then((_) {
+        print(gruntdotapi.Metadata.isLoaded());
+      });
+    }
   } catch (e) {
     print(e);
   }
@@ -46,12 +47,7 @@ Future<void> test0() async {
 //Loading the metadata of the medals
 Future<void> test1() async {
   print('test->1');
-  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
-  // if (!await accessToken.checkToken()) {
-  //   print('Token is invalid');
-  //   return;
-  // }
-  // print('Token is valid');
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
 
   try {
     await gruntdotapi.Metadata.loadMedals(token: accessToken.token).then((_) {
@@ -65,7 +61,7 @@ Future<void> test1() async {
 //Loading the metadata of matches
 Future<void> test2() async {
   print('test->2');
-  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
 
   try {
     List<gruntdotapi.Match> matches = await gruntdotapi.Statistics.loadMatches(
@@ -85,7 +81,7 @@ Future<void> test2() async {
 Future<void> test3() async {
   print('test->3');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
 
     await gruntdotapi.Statistics.loadGlobalStatistics(
             token: accessToken.token, gamertag: 'icecurim', filter: 'ranked')
@@ -98,7 +94,7 @@ Future<void> test3() async {
 Future<void> test4() async {
   print('test->4');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
 
     await gruntdotapi.Statistics.loadCSRS(
             token: accessToken.token, gamertag: 'icecurim')
@@ -111,7 +107,7 @@ Future<void> test4() async {
 Future<void> test5() async {
   print('test->5');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(token: token);
+    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
 
     await gruntdotapi.Statistics.loadAppearance(
             token: accessToken.token, gamertag: 'icecurim')
