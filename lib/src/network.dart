@@ -63,10 +63,15 @@ abstract class Network {
   static DateTime retryAfter = DateTime.now();
 
   static Future<dynamic> get(String url, {String? token}) async {
-    try {
-      canAccessApi();
-    } catch (e) {
-      rethrow;
+    // try {
+    //   canAccessApi();
+    // } catch (e) {
+    //   rethrow;
+    // }
+    if (canAccessApi() == false) {
+      throw TooManyRequestsException(
+          'Too many requests - retry after: ${DateTime.now().difference(retryAfter).inSeconds} seconds',
+          retryAfter);
     }
 
     http.Response response = await http.get(
@@ -105,13 +110,15 @@ abstract class Network {
     }
   }
 
-  static canAccessApi() {
+  static bool canAccessApi() {
     if (remainingRequests <= 0) {
       if (DateTime.now().isBefore(retryAfter)) {
-        throw TooManyRequestsException(
-            'Too many requests - retry after: ${DateTime.now().difference(retryAfter).inSeconds} seconds',
-            retryAfter);
+        // throw TooManyRequestsException(
+        //     'Too many requests - retry after: ${DateTime.now().difference(retryAfter).inSeconds} seconds',
+        //     retryAfter);
+        return false;
       }
     }
+    return true;
   }
 }
