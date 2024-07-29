@@ -21,8 +21,10 @@ class ApiKey {
   Future<bool> isTokenValid() async {
     if (_isValid == true) return _isValid;
     try {
-      await Network.get(tokenVerificationUrl, token: token);
-      _isValid = true;
+      if (_token.isNotEmpty) {
+        await Network.get(tokenVerificationUrl, token: token);
+        _isValid = true;
+      }
       print('token is valid');
     } on UnAuthorizedException {
       _isValid = false;
