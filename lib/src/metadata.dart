@@ -1,5 +1,5 @@
-import 'metadata/export.dart';
-import 'package:gruntdotapi/src/network.dart';
+import 'package:gruntdotapi/gruntdotapi.dart';
+import 'package:http/http.dart' as http;
 
 abstract class Metadata {
   static List<Category> categories = [];
@@ -16,131 +16,173 @@ abstract class Metadata {
   static List<MTeam> teams = [];
   static List<MMedal> medals = [];
 
-  static Future<void> loadAll(String token) async {
-    if (categories.isEmpty) await loadCategories(token: token);
-    if (engineVariants.isEmpty) await loadEngineVariants(token: token);
-    if (maps.isEmpty) await loadMaps(token: token);
-    if (currencies.isEmpty) await loadCurrencies(token: token);
-    if (careerRanks.isEmpty) await loadCareerRanks(token: token);
-    if (manufacturers.isEmpty) await loadManufacturers(token: token);
-    if (weaklyReward == null) await loadWeaklyReward(token: token);
-    if (seasons.isEmpty) await loadSeasons(token: token);
-    if (teams.isEmpty) await loadTeams(token: token);
-    if (medals.isEmpty) await loadMedals(token: token);
+  static Future<void> loadAll({required ApiKey authenticationKey}) async {
+    if (authenticationKey.ratelimitRemaining < 10) {
+      throw NotEnoughRequestException();
+    }
+    if (categories.isEmpty) {
+      await loadCategories(authenticationKey: authenticationKey);
+    }
+    if (engineVariants.isEmpty) {
+      await loadEngineVariants(authenticationKey: authenticationKey);
+    }
+    if (maps.isEmpty) {
+      await loadMaps(authenticationKey: authenticationKey);
+    }
+    if (currencies.isEmpty) {
+      await loadCurrencies(authenticationKey: authenticationKey);
+    }
+    if (careerRanks.isEmpty) {
+      await loadCareerRanks(authenticationKey: authenticationKey);
+    }
+    if (manufacturers.isEmpty) {
+      await loadManufacturers(authenticationKey: authenticationKey);
+    }
+    if (weaklyReward == null) {
+      await loadWeaklyReward(authenticationKey: authenticationKey);
+    }
+    if (seasons.isEmpty) {
+      await loadSeasons(authenticationKey: authenticationKey);
+    }
+    if (teams.isEmpty) {
+      await loadTeams(authenticationKey: authenticationKey);
+    }
+    if (medals.isEmpty) {
+      await loadMedals(authenticationKey: authenticationKey);
+    }
   }
 
-  static Future<List<Category>> loadCategories({required String token}) async {
+  static Future<List<Category>> loadCategories(
+      {required ApiKey authenticationKey}) async {
     if (categories.isNotEmpty) return categories;
 
-    var response = await Network.get(categoriesUrl, token: token);
-    categories = (response['data'] as List)
-        .map<Category>((e) => Category.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.categories, authenticationKey: authenticationKey);
+
+    categories = Gruntdotapi.fetchResponse(
+        response: response, fromJson: Category.fromJson);
 
     return categories;
   }
 
   static Future<List<Enginevariant>> loadEngineVariants(
-      {required String token}) async {
+      {required ApiKey authenticationKey}) async {
     if (engineVariants.isNotEmpty) return engineVariants;
 
-    var response = await Network.get(engineVariantsUrl, token: token);
-    engineVariants = (response['data'] as List)
-        .map<Enginevariant>((e) => Enginevariant.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.engineVariants, authenticationKey: authenticationKey);
+
+    engineVariants = Gruntdotapi.fetchResponse(
+        response: response, fromJson: Enginevariant.fromJson);
 
     return engineVariants;
   }
 
-  static Future<List<MMapClass>> loadMaps({required String token}) async {
+  static Future<List<MMapClass>> loadMaps(
+      {required ApiKey authenticationKey}) async {
     if (maps.isNotEmpty) return maps;
 
-    var response = await Network.get(mapsUrl, token: token);
-    maps = (response['data'] as List)
-        .map<MMapClass>((e) => MMapClass.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.maps, authenticationKey: authenticationKey);
+
+    maps = Gruntdotapi.fetchResponse(
+        response: response, fromJson: MMapClass.fromJson);
 
     return maps;
   }
 
-  static Future<List<Currency>> loadCurrencies({required String token}) async {
+  static Future<List<Currency>> loadCurrencies(
+      {required ApiKey authenticationKey}) async {
     if (currencies.isNotEmpty) return currencies;
 
-    var response = await Network.get(currenciesUrl, token: token);
-    currencies = (response['data'] as List)
-        .map<Currency>((e) => Currency.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.currencies, authenticationKey: authenticationKey);
+
+    currencies = Gruntdotapi.fetchResponse(
+        response: response, fromJson: Currency.fromJson);
 
     return currencies;
   }
 
   static Future<List<CareerRank>> loadCareerRanks(
-      {required String token}) async {
+      {required ApiKey authenticationKey}) async {
     if (careerRanks.isNotEmpty) return careerRanks;
 
-    var response = await Network.get(careerRanksUrl, token: token);
-    careerRanks = (response['data'] as List)
-        .map<CareerRank>((e) => CareerRank.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.careerRanks, authenticationKey: authenticationKey);
+
+    careerRanks = Gruntdotapi.fetchResponse(
+        response: response, fromJson: CareerRank.fromJson);
 
     return careerRanks;
   }
 
   static Future<List<Manufacturer>> loadManufacturers(
-      {required String token}) async {
+      {required ApiKey authenticationKey}) async {
     if (manufacturers.isNotEmpty) return manufacturers;
 
-    var response = await Network.get(manufacturerUrl, token: token);
-    manufacturers = (response['data'] as List)
-        .map<Manufacturer>((e) => Manufacturer.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.manufacturers, authenticationKey: authenticationKey);
+
+    manufacturers = Gruntdotapi.fetchResponse(
+        response: response, fromJson: Manufacturer.fromJson);
 
     return manufacturers;
   }
 
-  static Future<WeaklyReward?> loadWeaklyReward({required String token}) async {
+  static Future<WeaklyReward?> loadWeaklyReward(
+      {required ApiKey authenticationKey}) async {
     if (weaklyReward != null) return weaklyReward;
 
-    var response = await Network.get(weeklyRewardUrl, token: token);
-    weaklyReward = WeaklyReward.fromJson(response['data']);
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.weeklyReward, authenticationKey: authenticationKey);
+
+    weaklyReward = Gruntdotapi.fetchResponse(
+        response: response, fromJson: WeaklyReward.fromJson);
 
     return weaklyReward;
   }
 
-  static Future<List<MSeason>> loadSeasons({required String token}) async {
+  static Future<List<MSeason>> loadSeasons(
+      {required ApiKey authenticationKey}) async {
     if (seasons.isNotEmpty) return seasons;
 
-    var response = await Network.get(seasonsUrl, token: token);
-    seasons = (response['data'] as List)
-        .map<MSeason>((e) => MSeason.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.seasons, authenticationKey: authenticationKey);
+
+    seasons = Gruntdotapi.fetchResponse(
+        response: response, fromJson: MSeason.fromJson);
 
     return seasons;
   }
 
-  static Future<List<MTeam>> loadTeams({required String token}) async {
+  static Future<List<MTeam>> loadTeams(
+      {required ApiKey authenticationKey}) async {
     if (teams.isNotEmpty) return teams;
 
-    var response = await Network.get(teamsUrl, token: token);
-    teams = (response['data'] as List)
-        .map<MTeam>((e) => MTeam.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.teams, authenticationKey: authenticationKey);
+
+    teams =
+        Gruntdotapi.fetchResponse(response: response, fromJson: MTeam.fromJson);
 
     return teams;
   }
 
-  static Future<List<MMedal>> loadMedals({required String token}) async {
+  static Future<List<MMedal>> loadMedals(
+      {required ApiKey authenticationKey}) async {
     if (medals.isNotEmpty) return medals;
 
-    var response = await Network.get(medalsUrl, token: token);
-    medals = (response['data'] as List)
-        .map<MMedal>((e) => MMedal.fromJson(e))
-        .toList();
+    http.Response response = await Gruntdotapi.request(
+        route: Routes.medals, authenticationKey: authenticationKey);
+
+    medals = Gruntdotapi.fetchResponse(
+        response: response, fromJson: MMedal.fromJson);
 
     return medals;
   }
 
-  static bool isLoaded() {
+  static bool isAllDataLoaded() {
     if (weaklyReward != null &&
         categories.isNotEmpty &&
         engineVariants.isNotEmpty &&

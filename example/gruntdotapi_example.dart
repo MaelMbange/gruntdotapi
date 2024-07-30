@@ -1,25 +1,25 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:gruntdotapi/gruntdotapi.dart' as gruntdotapi;
+import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/config.dart';
 
 void main() async {
-  test0();
+  // test0();
   // test1();
   // test2();
   // test3();
   // test4();
-  // test5();
+  test5();
 }
 
 Future<void> test0() async {
   try {
-    print('test->0');
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
-    if (await accessToken.isTokenValid()) {
-      await gruntdotapi.Metadata.loadAll(accessToken.token).then((_) {
-        print(gruntdotapi.Metadata.isLoaded());
+    print('test 0 - Start');
+    ApiKey accessToken = ApiKey();
+    await accessToken.setupAccessToken(token);
+    if (accessToken.isValid) {
+      await Metadata.loadAll(authenticationKey: accessToken).then((_) {
+        print(Metadata.isAllDataLoaded());
       });
     }
   } catch (e) {
@@ -47,33 +47,38 @@ Future<void> test0() async {
 //Loading the metadata of the medals
 Future<void> test1() async {
   print('test->1');
-  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+  ApiKey accessToken = ApiKey();
+  await accessToken.setupAccessToken(token);
 
   try {
-    await gruntdotapi.Metadata.loadMedals(token: accessToken.token).then((_) {
-      print(jsonEncode(gruntdotapi.Metadata.medals[0].toJson()));
-    });
+    if (accessToken.isValid) {
+      await Metadata.loadMedals(authenticationKey: accessToken).then((_) {
+        print(Metadata.medals[0]);
+      });
+    }
   } catch (e) {
     print(e);
   }
 }
 
-//Loading the metadata of matches
+// //Loading the metadata of matches
 Future<void> test2() async {
   print('test->2');
-  gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+  ApiKey accessToken = ApiKey();
+  await accessToken.setupAccessToken(token);
 
   try {
-    List<gruntdotapi.Match> matches = await gruntdotapi.Statistics.loadMatches(
-        token: accessToken.token, gamertag: 'icecurim');
-    // matches.sort((a, b) => b.startedAt.compareTo(a.startedAt));
-    matches.sort();
-    for (var element in matches) {
+    if (accessToken.isValid) {
+      List<Match> matches = await Statistics.loadMatches(
+          authenticationKey: accessToken, gamertag: 'icecurim');
+
+      matches.sort();
+      Match element = matches.first;
       print(
           '${element.details.ugcGameVariant.name.toString().padRight(25)} : ${element.details.playlist.ranked.toString().padRight(5)} : ${element.startedAt.day}/${element.startedAt.month}/${element.startedAt.year} - ${element.startedAt.hour.toString().padLeft(2, '0')}h${element.startedAt.minute.toString().padLeft(2, '0')}');
     }
   } catch (e) {
-    print(e);
+    print(e.toString());
     return;
   }
 }
@@ -81,11 +86,16 @@ Future<void> test2() async {
 Future<void> test3() async {
   print('test->3');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+    ApiKey accessToken = ApiKey();
+    await accessToken.setupAccessToken(token);
 
-    await gruntdotapi.Statistics.loadGlobalStatistics(
-            token: accessToken.token, gamertag: 'icecurim', filter: 'ranked')
-        .then((value) => print(jsonEncode(value.toJson())));
+    if (accessToken.isValid) {
+      await Statistics.loadGlobalStatistics(
+              authenticationKey: accessToken,
+              gamertag: 'icecurim',
+              filter: 'ranked')
+          .then((value) => print(value));
+    }
   } catch (e) {
     print(e);
   }
@@ -94,11 +104,14 @@ Future<void> test3() async {
 Future<void> test4() async {
   print('test->4');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+    ApiKey accessToken = ApiKey();
+    await accessToken.setupAccessToken(token);
 
-    await gruntdotapi.Statistics.loadCSRS(
-            token: accessToken.token, gamertag: 'icecurim')
-        .then((value) => value.forEach(print));
+    if (accessToken.isValid) {
+      await Statistics.loadCSRS(
+              authenticationKey: accessToken, gamertag: 'icecurim')
+          .then((value) => value.forEach(print));
+    }
   } catch (e) {
     print(e);
   }
@@ -107,11 +120,14 @@ Future<void> test4() async {
 Future<void> test5() async {
   print('test->5');
   try {
-    gruntdotapi.ApiKey accessToken = gruntdotapi.ApiKey(accessToken: token);
+    ApiKey accessToken = ApiKey();
+    await accessToken.setupAccessToken(token);
 
-    await gruntdotapi.Statistics.loadAppearance(
-            token: accessToken.token, gamertag: 'icecurim')
-        .then(print);
+    if (accessToken.isValid) {
+      await Statistics.loadAppearance(
+              authenticationKey: accessToken, gamertag: 'icecurim')
+          .then(print);
+    }
   } catch (e) {
     print(e);
   }
