@@ -163,13 +163,6 @@ class Match extends MatchDefaults {
         'ended_at': endedAt.toIso8601String(),
       };
 
-  Future<dynamic> getMoreStats(String token) async {
-    var matchStats = await Network.get(
-        matchStatsUrl.replaceAll('{matchId}', id),
-        token: token);
-    return MatchStats.fromJson(matchStats['data']);
-  }
-
   bool operator <(Match other) =>
       this != other && startedAt.compareTo(other.startedAt) < 0;
 
