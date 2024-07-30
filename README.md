@@ -1,1 +1,1 @@
-A package to deal with halo infinite made by gruntdotapi - Zeny
+A package to deal with halo infinite api made by Zeny (twitter/x @gruntdotapi) 
