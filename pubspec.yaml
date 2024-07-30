@@ -1,7 +1,10 @@
 name: gruntdotapi
-description: A package to deal with halo infinite made by gruntdotapi - Zeny
+description: A package to deal with halo infinite api made by Zeny (twitter/x @gruntdotapi) 
 version: 1.0.0
 repository: https://github.com/MaelMbange/gruntdotapi
+homepage: https://github.com/MaelMbange/gruntdotapi
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
   sdk: ^3.4.4
