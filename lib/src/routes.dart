@@ -51,5 +51,5 @@ abstract class Routes {
       '$_base/games/halo-infinite/appearance/players/{gamertag}/spartan-id';
 
   static final toolingToken = '$_base/tooling/api/users/me/benefits';
-  static final toolingTokenRateLimitRemaining = '$_base/tooling/api/users/me';
+  static final toolingUserInfo = '$_base/tooling/api/users/me';
 }

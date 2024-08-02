@@ -7,6 +7,7 @@ class ApiKey {
   String _accessToken = '';
   int _ratelimit = 0;
   bool _isvalid = false;
+  String _userID = '';
 
   int _ratelimitRemaining = 0;
   DateTime _retryAfter = DateTime.utc(1970);
@@ -21,6 +22,7 @@ class ApiKey {
   int get ratelimitRemaining => _ratelimitRemaining;
   bool get isValid => _isvalid && _retryAfter.isBefore(DateTime.now());
   DateTime get retryAfter => _retryAfter;
+  String get userID => _userID;
 
   void updateRetryAfter({required DateTime retryAfter}) =>
       _retryAfter = retryAfter;
@@ -36,9 +38,11 @@ class ApiKey {
       _ratelimit = jsonDecode(response.body)['data'][0]['value'];
 
       //=> will retrieve the data and due to request implementation automatically update the retryAfter and ratelimitRemaining
-      await Gruntdotapi.request(
-          route: Routes.toolingTokenRateLimitRemaining,
-          authenticationKey: this);
+      http.Response rep = await Gruntdotapi.request(
+          route: Routes.toolingUserInfo, authenticationKey: this);
+
+      _userID = await Gruntdotapi.fetchResponse(
+          response: rep, fromJson: (e) => e['data']['id']);
     } else {
       _accessToken = '';
       _isvalid = false;
