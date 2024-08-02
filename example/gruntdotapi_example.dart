@@ -4,12 +4,41 @@ import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/config.dart';
 
 void main() async {
+  test01();
   // test0();
   // test1();
   // test2();
   // test3();
   // test4();
-  test5();
+  // test5();
+}
+
+Future<void> test01() async {
+  print('test 01 - Start');
+  ApiKey accessToken = ApiKey();
+  try {
+    await accessToken.setupAccessToken(token);
+    if (accessToken.isValid) {
+      print('User id: ${accessToken.userID}');
+      print(
+          'Remaining ratelimit: ${accessToken.ratelimitRemaining}/${accessToken.ratelimit}');
+      print('Token Valid: ${accessToken.isValid}');
+      print('Retry after: ${accessToken.retryAfter}');
+      print('Time before reset: ${accessToken.timeBeforeReset.inSeconds}s');
+    } else {
+      print('Not valid');
+    }
+  } catch (e) {
+    print(e);
+
+    print('Token Valid: ${accessToken.isValid}');
+    print('User id: ${accessToken.userID}');
+    print(
+        'Remaining ratelimit: ${accessToken.ratelimitRemaining}/${accessToken.ratelimit}');
+    print('Retry after: ${accessToken.retryAfter}');
+    print('Time before reset: ${accessToken.timeBeforeReset.inSeconds}s');
+    print('test 01 - End');
+  }
 }
 
 Future<void> test0() async {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,16 +16,23 @@ class ApiKey {
   }
 
   String get accessToken => _accessToken;
+  String get userID => _userID;
   int get ratelimit => _ratelimit;
   int get ratelimitRemaining => _ratelimitRemaining;
-  bool get isValid => _isvalid && _retryAfter.isBefore(DateTime.now());
+  bool get isValid =>
+      _isvalid &&
+      _retryAfter.isAfter(DateTime.now()) &&
+      _ratelimitRemaining > 0 &&
+      _userID.isNotEmpty;
+
   DateTime get retryAfter => _retryAfter;
-  String get userID => _userID;
+  Duration get timeBeforeReset => _retryAfter.difference(DateTime.now());
 
   void updateRetryAfter({required DateTime retryAfter}) =>
       _retryAfter = retryAfter;
   void updateRatelimitRemaining({required int remaining}) =>
       _ratelimitRemaining = remaining;
+  void updateRatelimit({required int ratelimit}) => _ratelimit = ratelimit;
 
   Future<void> _askTokenValidity() async {
     http.Response response = await Gruntdotapi.request(
@@ -35,17 +40,21 @@ class ApiKey {
 
     if (response.statusCode == 200) {
       _isvalid = true;
-      _ratelimit = jsonDecode(response.body)['data'][0]['value'];
 
-      //=> will retrieve the data and due to request implementation automatically update the retryAfter and ratelimitRemaining
-      http.Response rep = await Gruntdotapi.request(
+      //=> will retrieve the data and due to request implementation automatically update retryAfter, ratelimit and ratelimitRemaining
+      response = await Gruntdotapi.request(
           route: Routes.toolingUserInfo, authenticationKey: this);
 
       _userID = await Gruntdotapi.fetchResponse(
-          response: rep, fromJson: (e) => e['data']['id']);
+          response: response, fromJson: (e) => e['id']);
     } else {
       _accessToken = '';
       _isvalid = false;
+      _userID = '';
+      _retryAfter = DateTime.utc(1970);
+      _ratelimit = 0;
+      _ratelimitRemaining = 0;
+
       throw KeyValidityException();
     }
   }

@@ -34,15 +34,23 @@ abstract class Gruntdotapi {
       },
     );
 
+    if (response.headers['ratelimit-limit'] != null) {
+      authenticationKey?.updateRatelimit(
+          ratelimit: int.parse(response.headers['ratelimit-limit']!));
+    }
+
     if (response.headers['ratelimit-remaining'] != null) {
       authenticationKey?.updateRatelimitRemaining(
           remaining: int.parse(response.headers['ratelimit-remaining']!));
     }
+
     if (response.headers['ratelimit-reset'] != null) {
       DateFormat dateFormat =
           DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", "en_US");
       authenticationKey?.updateRetryAfter(
-          retryAfter: dateFormat.parse(response.headers['ratelimit-reset']!));
+          retryAfter: dateFormat
+              .parse(response.headers['ratelimit-reset']!, true)
+              .toLocal());
     }
 
     return response;
@@ -61,13 +69,13 @@ abstract class Gruntdotapi {
         return fromJson(decodedBody) as R;
       }
     } else if (response.statusCode == 400) {
-      throw BadArgumentException();
+      throw BadArgumentException(message: response.body);
     } else if (response.statusCode == 401) {
-      throw UnAuthorizedException();
+      throw UnAuthorizedException(message: response.body);
     } else if (response.statusCode == 429) {
-      throw TooManyRequestsException();
+      throw TooManyRequestsException(message: response.body);
     } else {
-      throw UnImplementedException();
+      throw UnImplementedException(message: response.body);
     }
   }
 }
