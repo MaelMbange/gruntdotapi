@@ -31,7 +31,6 @@ class ApiKey {
   set userID(String id) => _userID = id;
   set accessToken(String token) => _accessToken = token;
   set ratelimit(int ratelimit) => _ratelimit = ratelimit;
-  set retryAfter(DateTime retryAfter) => _retryAfter = retryAfter;
   set retryAfterFromString(String retryAfter) {
     _retryAfter = DateTime.parse(retryAfter);
   }
