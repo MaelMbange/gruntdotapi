@@ -10,8 +10,8 @@ class ApiKey {
   int _ratelimitRemaining = 0;
   DateTime _retryAfter = DateTime.utc(1970);
 
-  Future<void> setupAccessToken(String token) async {
-    _accessToken = token;
+  Future<void> setupAccessToken(String authenticationKey) async {
+    _accessToken = authenticationKey;
     await _askTokenValidity();
   }
 
