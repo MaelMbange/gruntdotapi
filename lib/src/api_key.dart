@@ -28,13 +28,6 @@ class ApiKey {
   DateTime get retryAfter => _retryAfter;
   Duration get timeBeforeReset => _retryAfter.difference(DateTime.now());
 
-  set userID(String id) => _userID = id;
-  set accessToken(String token) => _accessToken = token;
-  set ratelimit(int ratelimit) => _ratelimit = ratelimit;
-  set retryAfterFromString(String retryAfter) {
-    _retryAfter = DateTime.parse(retryAfter);
-  }
-
   void updateRetryAfter({required DateTime retryAfter}) =>
       _retryAfter = retryAfter;
   void updateRatelimitRemaining({required int remaining}) =>
