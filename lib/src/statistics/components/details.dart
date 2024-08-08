@@ -14,7 +14,7 @@ import 'image_urls.dart';
 class SDetails {
   SMapClass map;
   SUGCGameVariant ugcGameVariant;
-  SPlaylist playlist;
+  SPlaylist? playlist;
 
   SDetails({
     required this.map,
@@ -25,13 +25,15 @@ class SDetails {
   factory SDetails.fromJson(Map<String, dynamic> json) => SDetails(
         map: SMapClass.fromJson(json['map']),
         ugcGameVariant: SUGCGameVariant.fromJson(json['ugcgamevariant']),
-        playlist: SPlaylist.fromJson(json['playlist']),
+        playlist: json['playlist'] != null
+            ? SPlaylist.fromJson(json['playlist'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         'map': map.toJson(),
         'ugcgamevariant': ugcGameVariant.toJson(),
-        'playlist': playlist.toJson(),
+        'playlist': playlist?.toJson(),
       };
 
   @override
