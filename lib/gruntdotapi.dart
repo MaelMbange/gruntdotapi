@@ -68,7 +68,7 @@ abstract class Gruntdotapi {
       } else {
         return fromJson(decodedBody) as R;
       }
-    } else if (response.statusCode == 400) {
+    } else if (response.statusCode == 400 || response.statusCode == 404) {
       throw BadArgumentException(message: response.body);
     } else if (response.statusCode == 401) {
       throw UnAuthorizedException(message: response.body);
