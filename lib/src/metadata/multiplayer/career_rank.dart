@@ -1,9 +1,9 @@
-/// Description of the class [CareerRank]
+/// Description of the class [MCareerRank]
 ///
 /// Is the representation of a career rank available in the game
 library;
 
-class CareerRank {
+class MCareerRank {
   /// Rank of the career
   final int rank;
 
@@ -37,7 +37,7 @@ class CareerRank {
   /// Quantity of experience points needed to reach this rank
   final int threshold;
 
-  CareerRank({
+  MCareerRank({
     required this.rank,
     required this.title,
     required this.subtitle,
@@ -51,8 +51,8 @@ class CareerRank {
     required this.threshold,
   });
 
-  factory CareerRank.fromJson(Map<String, dynamic> json) {
-    return CareerRank(
+  factory MCareerRank.fromJson(Map<String, dynamic> json) {
+    return MCareerRank(
       rank: json['rank'],
       title: json['title'],
       subtitle: json['subtitle'],

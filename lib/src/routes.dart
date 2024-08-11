@@ -44,11 +44,14 @@ abstract class Routes {
   static final playerGlobalStats =
       '$_base/games/halo-infinite/stats/multiplayer/players/{gamertag}/service-record/matchmade?filter={filter}';
 
-  static final csrs =
+  static final playerCsrs =
       '$_base/games/halo-infinite/stats/multiplayer/players/{gamertag}/csrs';
 
   static final playerAppearance =
       '$_base/games/halo-infinite/appearance/players/{gamertag}/spartan-id';
+
+  static final playerCareerRank =
+      '$_base/games/halo-infinite/stats/multiplayer/players/{gamertag}/career-rank';
 
   static final toolingToken = '$_base/tooling/api/users/me/benefits';
   static final toolingUserInfo = '$_base/tooling/api/users/me';

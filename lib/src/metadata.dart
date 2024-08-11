@@ -7,7 +7,7 @@ abstract class Metadata {
 
   static List<MMapClass> maps = [];
   static List<Currency> currencies = [];
-  static List<CareerRank> careerRanks = [];
+  static List<MCareerRank> careerRanks = [];
   static List<Manufacturer> manufacturers = [];
 
   static WeaklyReward? weaklyReward;
@@ -104,7 +104,7 @@ abstract class Metadata {
     return currencies;
   }
 
-  static Future<List<CareerRank>> loadCareerRanks(
+  static Future<List<MCareerRank>> loadCareerRanks(
       {required ApiKey authenticationKey}) async {
     if (careerRanks.isNotEmpty) return careerRanks;
 
@@ -112,7 +112,7 @@ abstract class Metadata {
         route: Routes.careerRanks, authenticationKey: authenticationKey);
 
     careerRanks = Gruntdotapi.fetchResponse(
-        response: response, fromJson: CareerRank.fromJson);
+        response: response, fromJson: MCareerRank.fromJson);
 
     return careerRanks;
   }

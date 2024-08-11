@@ -71,10 +71,22 @@ class Statistics {
     required String gamertag,
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.csrs.replaceAll('{gamertag}', gamertag),
+        route: Routes.playerCsrs.replaceAll('{gamertag}', gamertag),
         authenticationKey: authenticationKey);
 
     return Gruntdotapi.fetchResponse(
         response: response, fromJson: CSRS.fromJson);
+  }
+
+  static Future<CareerRank> loadCareerRank({
+    required ApiKey authenticationKey,
+    required String gamertag,
+  }) async {
+    var response = await Gruntdotapi.request(
+        route: Routes.playerCareerRank.replaceAll('{gamertag}', gamertag),
+        authenticationKey: authenticationKey);
+
+    return Gruntdotapi.fetchResponse(
+        response: response, fromJson: CareerRank.fromJson);
   }
 }

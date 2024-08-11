@@ -4,13 +4,14 @@ import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/config.dart';
 
 void main() async {
-  test01();
+  // test01();
   // test0();
   // test1();
   // test2();
   // test3();
   // test4();
   // test5();
+  test6();
 }
 
 Future<void> test01() async {
@@ -154,6 +155,22 @@ Future<void> test5() async {
 
     if (accessToken.isValid) {
       await Statistics.loadAppearance(
+              authenticationKey: accessToken, gamertag: 'icecurim')
+          .then(print);
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future<void> test6() async {
+  print('test->5');
+  try {
+    ApiKey accessToken = ApiKey();
+    await accessToken.setupAccessToken(token);
+
+    if (accessToken.isValid) {
+      await Statistics.loadCareerRank(
               authenticationKey: accessToken, gamertag: 'icecurim')
           .then(print);
     }
