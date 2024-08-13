@@ -21,7 +21,7 @@ class ApiKey {
   int get ratelimitRemaining => _ratelimitRemaining;
   bool get isValid =>
       _isvalid &&
-      (_ratelimitRemaining > 0 || _retryAfter.isAfter(DateTime.now())) &&
+      (_ratelimitRemaining > 0 || _retryAfter.isBefore(DateTime.now())) &&
       _userID.isNotEmpty;
 
   DateTime get retryAfter => _retryAfter;
