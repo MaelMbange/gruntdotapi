@@ -40,7 +40,7 @@ class ApiKey {
     if (response.statusCode == 200) {
       _isvalid = true;
 
-      //=> will retrieve the data and due to request implementation automatically update retryAfter, ratelimit and ratelimitRemaining
+      //=> due to request implementation automatically update retryAfter, ratelimit and ratelimitRemaining
       response = await Gruntdotapi.request(
           route: Routes.toolingUserInfo, authenticationKey: this);
 
