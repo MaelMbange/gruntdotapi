@@ -19,7 +19,10 @@ class ApiKey {
   String get userID => _userID;
   int get ratelimit => _ratelimit;
   int get ratelimitRemaining => _ratelimitRemaining;
-  bool get isValid => _isvalid && _ratelimitRemaining > 0 && _userID.isNotEmpty;
+  bool get isValid =>
+      _isvalid &&
+      (_ratelimitRemaining > 0 || _retryAfter.isAfter(DateTime.now())) &&
+      _userID.isNotEmpty;
 
   DateTime get retryAfter => _retryAfter;
   Duration get timeBeforeReset => _retryAfter.difference(DateTime.now());
