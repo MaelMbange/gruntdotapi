@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:gruntdotapi/gruntdotapi.dart';
 import 'package:gruntdotapi/config.dart';
@@ -11,7 +12,7 @@ void main() async {
   // test3();
   // test4();
   // test5();
-  test6();
+  // test6();
 }
 
 Future<void> test01() async {
@@ -123,8 +124,8 @@ Future<void> test3() async {
       await Statistics.loadGlobalStatistics(
               authenticationKey: accessToken,
               gamertag: 'icecurim',
-              filter: 'ranked')
-          .then((value) => print(value));
+              filter: 'all')
+          .then((value) => print(jsonEncode(value.stats.modes.toJson())));
     }
   } catch (e) {
     print(e);
