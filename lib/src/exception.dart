@@ -62,3 +62,13 @@ class UnImplementedException implements Exception {
   String toString() =>
       'UnImplemented - ${message.replaceFirst('UnImplemented - ', '')}';
 }
+
+class ServerErrorException implements Exception {
+  final String message;
+
+  ServerErrorException({this.message = 'ServerError'});
+
+  @override
+  String toString() =>
+      'ServerError - ${message.replaceFirst('ServerError - ', '')}';
+}

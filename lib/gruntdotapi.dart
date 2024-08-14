@@ -74,6 +74,8 @@ abstract class Gruntdotapi {
       throw UnAuthorizedException(message: response.body);
     } else if (response.statusCode == 429) {
       throw TooManyRequestsException(message: response.body);
+    } else if (response.statusCode >= 500 && response.statusCode < 600) {
+      throw ServerErrorException(message: response.body);
     } else {
       throw UnImplementedException(message: response.body);
     }
