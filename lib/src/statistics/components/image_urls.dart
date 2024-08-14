@@ -1,9 +1,9 @@
 library;
 
 class ImageUrls {
-  final String hero;
-  final String thumbnail;
-  final List<String> screenshots;
+  final String? hero;
+  final String? thumbnail;
+  final List<String>? screenshots;
 
   ImageUrls({
     required this.hero,
@@ -14,7 +14,9 @@ class ImageUrls {
   factory ImageUrls.fromJson(Map<String, dynamic> json) => ImageUrls(
         hero: json['hero'],
         thumbnail: json['thumbnail'],
-        screenshots: List<String>.from(json['screenshots']),
+        screenshots: json['screenshots'] != null
+            ? List<String>.from(json['screenshots'])
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
