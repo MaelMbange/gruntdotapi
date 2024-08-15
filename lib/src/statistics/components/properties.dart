@@ -2,7 +2,7 @@ library;
 
 class SProperties {
   String type;
-  STeamInfo team;
+  STeamInfo? team;
 
   SProperties({
     required this.type,
@@ -11,12 +11,12 @@ class SProperties {
 
   factory SProperties.fromJson(Map<String, dynamic> json) => SProperties(
         type: json['type'],
-        team: STeamInfo.fromJson(json['team']),
+        team: json['team'] != null ? STeamInfo.fromJson(json['team']) : null,
       );
 
   Map<String, dynamic> toJson() => {
         'type': type,
-        'team': team.toJson(),
+        'team': team?.toJson(),
       };
 
   @override
