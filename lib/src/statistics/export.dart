@@ -12,7 +12,7 @@ export 'components/participation.dart';
 export 'components/performance.dart';
 export 'components/progression.dart';
 export 'components/properties.dart';
-export 'components/rounds.dart ';
+export 'components/rounds.dart';
 export 'components/scores.dart';
 export 'components/shots.dart';
 export 'components/stats.dart';
