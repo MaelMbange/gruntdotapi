@@ -13,6 +13,7 @@ void main() async {
   // test4();
   // test5();
   // test6();
+  test7();
 }
 
 Future<void> test01() async {
@@ -177,5 +178,25 @@ Future<void> test6() async {
     }
   } catch (e) {
     print(e);
+  }
+}
+
+Future<void> test7() async {
+  print('test->2');
+  ApiKey accessToken = ApiKey();
+  await accessToken.setupAccessToken(token);
+
+  try {
+    if (accessToken.isValid) {
+      List<Match> matches = await Statistics.loadMatches(
+          authenticationKey: accessToken, gamertag: 'icecurim', type: 'custom');
+
+      for (var element in matches) {
+        print('${element.season}');
+      }
+    }
+  } catch (e) {
+    print(e.toString());
+    return;
   }
 }
