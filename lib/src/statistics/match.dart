@@ -5,12 +5,12 @@ import 'package:gruntdotapi/gruntdotapi.dart';
 part 'match_ext_1.dart';
 
 abstract class MatchDefaults implements Comparable<MatchDefaults> {
-  final String id;
-  final SDetails details;
-  final MatchProperties properties;
+  final String? id;
+  final SDetails? details;
+  final MatchProperties? properties;
 
-  final MatchSeason season;
-  final TimeDuration playableDuration;
+  final MatchSeason? season;
+  final TimeDuration? playableDuration;
   final DateTime startedAt;
   final DateTime endedAt;
 
@@ -142,22 +142,29 @@ class Match extends MatchDefaults {
 
   factory Match.fromJson(Map<String, dynamic> json) => Match(
         id: json['id'],
-        details: SDetails.fromJson(json['details']),
-        properties: MatchProperties.fromJson(json['properties']),
-        season: MatchSeason.fromJson(json['season']),
+        details:
+            json['details'] != null ? SDetails.fromJson(json['details']) : null,
+        properties: json['properties'] != null
+            ? MatchProperties.fromJson(json['properties'])
+            : null,
+        season: json['season'] != null
+            ? MatchSeason.fromJson(json['season'])
+            : null,
         player: Player.fromJson(json['player']),
-        playableDuration: TimeDuration.fromJson(json['playable_duration']),
+        playableDuration: json['playable_duration'] != null
+            ? TimeDuration.fromJson(json['playable_duration'])
+            : null,
         startedAt: DateTime.parse(json['started_at']),
         endedAt: DateTime.parse(json['ended_at']),
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'details': details.toJson(),
-        'properties': properties.toJson(),
-        'season': season.toJson(),
+        'details': details?.toJson(),
+        'properties': properties?.toJson(),
+        'season': season?.toJson(),
         'player': player.toJson(),
-        'playable_duration': playableDuration.toJson(),
+        'playable_duration': playableDuration?.toJson(),
         'started_at': startedAt.toIso8601String(),
         'ended_at': endedAt.toIso8601String(),
       };
@@ -197,25 +204,32 @@ class MatchStats extends MatchDefaults {
 
   factory MatchStats.fromJson(Map<String, dynamic> json) => MatchStats(
         id: json['id'],
-        details: SDetails.fromJson(json['details']),
-        properties: MatchProperties.fromJson(json['properties']),
+        details:
+            json['details'] != null ? SDetails.fromJson(json['details']) : null,
+        properties: json['properties'] != null
+            ? MatchProperties.fromJson(json['properties'])
+            : null,
         teams: List<STeam>.from(json['teams'].map((x) => STeam.fromJson(x))),
         players:
             List<Player>.from(json['players'].map((x) => Player.fromJson(x))),
-        season: MatchSeason.fromJson(json['season']),
-        playableDuration: TimeDuration.fromJson(json['playable_duration']),
+        season: json['season'] != null
+            ? MatchSeason.fromJson(json['season'])
+            : null,
+        playableDuration: json['playable_duration'] != null
+            ? TimeDuration.fromJson(json['playable_duration'])
+            : null,
         startedAt: DateTime.parse(json['started_at']),
         endedAt: DateTime.parse(json['ended_at']),
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'details': details.toJson(),
-        'properties': properties.toJson(),
+        'details': details?.toJson(),
+        'properties': properties?.toJson(),
         'teams': teams.map((team) => team.toJson()).toList(),
         'players': players.map((player) => player.toJson()).toList(),
-        'season': season.toJson(),
-        'playable_duration': playableDuration.toJson(),
+        'season': season?.toJson(),
+        'playable_duration': playableDuration?.toJson(),
         'started_at': startedAt.toIso8601String(),
         'ended_at': endedAt.toIso8601String(),
       };
