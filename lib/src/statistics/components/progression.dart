@@ -20,8 +20,8 @@ class Progression {
 }
 
 class SMatchCSRInfo {
-  CSR preMatch;
-  CSR postMatch;
+  CSR? preMatch;
+  CSR? postMatch;
 
   SMatchCSRInfo({
     required this.preMatch,
@@ -29,13 +29,16 @@ class SMatchCSRInfo {
   });
 
   factory SMatchCSRInfo.fromJson(Map<String, dynamic> json) => SMatchCSRInfo(
-        preMatch: CSR.fromJson(json['pre_match']),
-        postMatch: CSR.fromJson(json['post_match']),
+        preMatch:
+            json['pre_match'] != null ? CSR.fromJson(json['pre_match']) : null,
+        postMatch: json['post_match'] != null
+            ? CSR.fromJson(json['post_match'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        'pre_match': preMatch.toJson(),
-        'post_match': postMatch.toJson(),
+        'pre_match': preMatch?.toJson(),
+        'post_match': postMatch?.toJson(),
       };
 
   @override
@@ -43,18 +46,18 @@ class SMatchCSRInfo {
 }
 
 class CSR {
-  int value;
-  int measurementMatchesRemaining;
-  String tier;
-  int tierStart;
-  int subTier;
-  String nextTier;
-  int nextTierStart;
-  int nextSubTier;
-  int initialMeasurementMatches;
-  int demotionProtectionMatchesRemaining;
-  int initialDemotionProtectionMatches;
-  String tierImageUrl;
+  int? value;
+  int? measurementMatchesRemaining;
+  String? tier;
+  int? tierStart;
+  int? subTier;
+  String? nextTier;
+  int? nextTierStart;
+  int? nextSubTier;
+  int? initialMeasurementMatches;
+  int? demotionProtectionMatchesRemaining;
+  int? initialDemotionProtectionMatches;
+  String? tierImageUrl;
 
   CSR({
     required this.value,

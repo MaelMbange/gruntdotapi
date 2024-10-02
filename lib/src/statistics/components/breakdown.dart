@@ -1,10 +1,10 @@
 library;
 
 class Breakdown {
-  BreakdownKills kills;
-  BreakdownAssists assists;
-  BreakdownVehicles vehicles;
-  List<BreakdownMedal> medals;
+  BreakdownKills? kills;
+  BreakdownAssists? assists;
+  BreakdownVehicles? vehicles;
+  List<BreakdownMedal>? medals;
 
   Breakdown({
     required this.kills,
@@ -14,18 +14,24 @@ class Breakdown {
   });
 
   factory Breakdown.fromJson(Map<String, dynamic> json) => Breakdown(
-        kills: BreakdownKills.fromJson(json['kills']),
-        assists: BreakdownAssists.fromJson(json['assists']),
-        vehicles: BreakdownVehicles.fromJson(json['vehicles']),
+        kills: json['kills'] != null
+            ? BreakdownKills.fromJson(json['kills'])
+            : null,
+        assists: json['assists'] != null
+            ? BreakdownAssists.fromJson(json['assists'])
+            : null,
+        vehicles: json['vehicles'] != null
+            ? BreakdownVehicles.fromJson(json['vehicles'])
+            : null,
         medals: List<BreakdownMedal>.from(
             json['medals'].map((medal) => BreakdownMedal.fromJson(medal))),
       );
 
   Map<String, dynamic> toJson() => {
-        'kills': kills.toJson(),
-        'assists': assists.toJson(),
-        'vehicles': vehicles.toJson(),
-        'medals': medals.map((medal) => medal.toJson()).toList(),
+        'kills': kills?.toJson(),
+        'assists': assists?.toJson(),
+        'vehicles': vehicles?.toJson(),
+        'medals': medals?.map((medal) => medal.toJson()).toList(),
       };
 
   @override
@@ -34,9 +40,9 @@ class Breakdown {
 }
 
 class BreakdownAssists {
-  int emp;
-  int driver;
-  int callouts;
+  int? emp;
+  int? driver;
+  int? callouts;
 
   BreakdownAssists({
     required this.emp,
@@ -62,8 +68,8 @@ class BreakdownAssists {
 }
 
 class BreakdownMedal {
-  int id;
-  int count;
+  int? id;
+  int? count;
 
   BreakdownMedal({
     required this.id,
@@ -85,8 +91,8 @@ class BreakdownMedal {
 }
 
 class BreakdownVehicles {
-  List<dynamic> destroys;
-  List<dynamic> hijacks;
+  List<dynamic>? destroys;
+  List<dynamic>? hijacks;
 
   BreakdownVehicles({
     required this.destroys,
@@ -109,14 +115,14 @@ class BreakdownVehicles {
 }
 
 class BreakdownKills {
-  int melee;
-  int grenades;
-  int headshots;
-  int powerWeapons;
-  int sticks;
-  int assassinations;
-  KillsVehicles vehicles;
-  KillsMiscellaneous miscellaneous;
+  int? melee;
+  int? grenades;
+  int? headshots;
+  int? powerWeapons;
+  int? sticks;
+  int? assassinations;
+  KillsVehicles? vehicles;
+  KillsMiscellaneous? miscellaneous;
 
   BreakdownKills({
     required this.melee,
@@ -136,8 +142,12 @@ class BreakdownKills {
         powerWeapons: json['power_weapons'],
         sticks: json['sticks'],
         assassinations: json['assassinations'],
-        vehicles: KillsVehicles.fromJson(json['vehicles']),
-        miscellaneous: KillsMiscellaneous.fromJson(json['miscellaneous']),
+        vehicles: json['vehicles'] != null
+            ? KillsVehicles.fromJson(json['vehicles'])
+            : null,
+        miscellaneous: json['miscellaneous'] != null
+            ? KillsMiscellaneous.fromJson(json['miscellaneous'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -147,8 +157,8 @@ class BreakdownKills {
         'power_weapons': powerWeapons,
         'sticks': sticks,
         'assassinations': assassinations,
-        'vehicles': vehicles.toJson(),
-        'miscellaneous': miscellaneous.toJson(),
+        'vehicles': vehicles?.toJson(),
+        'miscellaneous': miscellaneous?.toJson(),
       };
 
   @override
@@ -157,8 +167,8 @@ class BreakdownKills {
 }
 
 class KillsMiscellaneous {
-  int repulsor;
-  int fusionCoils;
+  int? repulsor;
+  int? fusionCoils;
 
   KillsMiscellaneous({
     required this.repulsor,
@@ -181,7 +191,7 @@ class KillsMiscellaneous {
 }
 
 class KillsVehicles {
-  int splatters;
+  int? splatters;
 
   KillsVehicles({
     required this.splatters,

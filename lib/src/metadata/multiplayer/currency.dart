@@ -1,9 +1,9 @@
 library;
 
 class Currency {
-  final String id;
-  final String title;
-  final String image;
+  final String? id;
+  final String? title;
+  final String? image;
 
   Currency({
     required this.id,

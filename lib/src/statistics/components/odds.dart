@@ -1,8 +1,8 @@
 library;
 
 class Odds {
-  num winning;
-  num losing;
+  num? winning;
+  num? losing;
 
   Odds({
     required this.winning,

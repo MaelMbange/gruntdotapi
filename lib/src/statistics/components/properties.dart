@@ -1,7 +1,7 @@
 library;
 
 class SProperties {
-  String type;
+  String? type;
   STeamInfo? team;
 
   SProperties({
@@ -24,8 +24,8 @@ class SProperties {
 }
 
 class STeamInfo {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   STeamInfo({
     required this.id,

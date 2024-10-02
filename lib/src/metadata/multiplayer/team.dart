@@ -5,15 +5,15 @@ library;
 
 class MTeam {
   /// id of the team.
-  final int id;
+  final int? id;
 
   /// name of the team.
-  final String name;
+  final String? name;
 
   /// url of the icon of the team.
-  final String icon;
+  final String? icon;
 
-  final String color;
+  final String? color;
 
   MTeam({
     required this.id,

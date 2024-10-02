@@ -10,9 +10,9 @@ import 'stats.dart';
 
 abstract class Entity {
   String? name;
-  int rank;
-  String outcome;
-  Stats stats;
+  int? rank;
+  String? outcome;
+  Stats? stats;
 
   Entity({
     required this.name,
@@ -28,9 +28,9 @@ abstract class Entity {
 
 class Player extends Entity {
   Attributes? attributes;
-  SProperties properties;
-  Participation participation;
-  Progression progression;
+  SProperties? properties;
+  Participation? participation;
+  Progression? progression;
   Performances? performances;
 
   Player({
@@ -52,10 +52,16 @@ class Player extends Entity {
         attributes: json['attributes'] != null
             ? Attributes.fromJson(json['attributes'])
             : null,
-        properties: SProperties.fromJson(json['properties']),
-        stats: Stats.fromJson(json['stats']),
-        participation: Participation.fromJson(json['participation']),
-        progression: Progression.fromJson(json['progression']),
+        properties: json['properties'] != null
+            ? SProperties.fromJson(json['properties'])
+            : null,
+        stats: json['stats'] != null ? Stats.fromJson(json['stats']) : null,
+        participation: json['participation'] != null
+            ? Participation.fromJson(json['participation'])
+            : null,
+        progression: json['progression'] != null
+            ? Progression.fromJson(json['progression'])
+            : null,
         performances: json['performances'] != null
             ? Performances.fromJson(json['performances'])
             : null,
@@ -66,10 +72,10 @@ class Player extends Entity {
         'rank': rank,
         'outcome': outcome,
         'attributes': attributes?.toJson(),
-        'properties': properties.toJson(),
-        'stats': stats.toJson(),
-        'participation': participation.toJson(),
-        'progression': progression.toJson(),
+        'properties': properties?.toJson(),
+        'stats': stats?.toJson(),
+        'participation': participation?.toJson(),
+        'progression': progression?.toJson(),
         'performances': performances?.toJson(),
       };
 
@@ -79,8 +85,8 @@ class Player extends Entity {
 }
 
 class STeam extends Entity {
-  int id;
-  Odds odds;
+  int? id;
+  Odds? odds;
 
   STeam({
     required this.id,
@@ -96,8 +102,8 @@ class STeam extends Entity {
         name: json['name'],
         rank: json['rank'],
         outcome: json['outcome'],
-        stats: Stats.fromJson(json['stats']),
-        odds: Odds.fromJson(json['odds']),
+        stats: json['stats'] != null ? Stats.fromJson(json['stats']) : null,
+        odds: json['odds'] != null ? Odds.fromJson(json['odds']) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -105,8 +111,8 @@ class STeam extends Entity {
         'name': name,
         'rank': rank,
         'outcome': outcome,
-        'stats': stats.toJson(),
-        'odds': odds.toJson(),
+        'stats': stats?.toJson(),
+        'odds': odds?.toJson(),
       };
 
   @override

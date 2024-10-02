@@ -1,16 +1,16 @@
 library;
 
 class Summary {
-  int kills;
-  int deaths;
-  int assists;
-  int betrayals;
-  int suicides;
-  int spawns;
-  int maxKillingSpree;
-  SummaryVehicles vehicles;
-  SummaryMedals medals;
-  int objectivesCompleted;
+  int? kills;
+  int? deaths;
+  int? assists;
+  int? betrayals;
+  int? suicides;
+  int? spawns;
+  int? maxKillingSpree;
+  SummaryVehicles? vehicles;
+  SummaryMedals? medals;
+  int? objectivesCompleted;
 
   Summary({
     required this.kills,
@@ -32,9 +32,13 @@ class Summary {
         betrayals: json['betrayals'],
         suicides: json['suicides'],
         spawns: json['spawns'],
-        maxKillingSpree: json['max_killing_spree'],
-        vehicles: SummaryVehicles.fromJson(json['vehicles']),
-        medals: SummaryMedals.fromJson(json['medals']),
+        maxKillingSpree: json['max_killing_spree'] ?? 0,
+        vehicles: json['vehicles'] != null
+            ? SummaryVehicles.fromJson(json['vehicles'])
+            : null,
+        medals: json['medals'] != null
+            ? SummaryMedals.fromJson(json['medals'])
+            : null,
         objectivesCompleted: json['objectives_completed'],
       );
 
@@ -46,8 +50,8 @@ class Summary {
         'suicides': suicides,
         'spawns': spawns,
         'max_killing_spree': maxKillingSpree,
-        'vehicles': vehicles.toJson(),
-        'medals': medals.toJson(),
+        'vehicles': vehicles?.toJson(),
+        'medals': medals?.toJson(),
         'objectives_completed': objectivesCompleted,
       };
 
@@ -57,8 +61,8 @@ class Summary {
 }
 
 class SummaryMedals {
-  int total;
-  int unique;
+  int? total;
+  int? unique;
 
   SummaryMedals({
     required this.total,
@@ -80,8 +84,8 @@ class SummaryMedals {
 }
 
 class SummaryVehicles {
-  int destroys;
-  int hijacks;
+  int? destroys;
+  int? hijacks;
 
   SummaryVehicles({
     required this.destroys,

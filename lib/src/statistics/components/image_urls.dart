@@ -16,7 +16,7 @@ class ImageUrls {
         thumbnail: json['thumbnail'],
         screenshots: json['screenshots'] != null
             ? List<String>.from(json['screenshots'])
-            : [],
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

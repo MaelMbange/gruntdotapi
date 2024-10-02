@@ -2,10 +2,10 @@ library;
 
 class Participation {
   dynamic confirmed;
-  bool joinedInProgress;
-  DateTime joinedAt;
+  bool? joinedInProgress;
+  DateTime? joinedAt;
   DateTime? leftAt;
-  Presence presence;
+  Presence? presence;
 
   Participation({
     required this.confirmed,
@@ -18,18 +18,22 @@ class Participation {
   factory Participation.fromJson(Map<String, dynamic> json) => Participation(
         confirmed: json['confirmed'],
         joinedInProgress: json['joined_in_progress'],
-        joinedAt: DateTime.parse(json['joined_at']),
+        joinedAt: json['joined_at'] != null
+            ? DateTime.parse(json['joined_at'])
+            : null,
         leftAt:
             json['left_at'] != null ? DateTime.parse(json['left_at']) : null,
-        presence: Presence.fromJson(json['presence']),
+        presence: json['presence'] != null
+            ? Presence.fromJson(json['presence'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         'confirmed': confirmed,
         'joined_in_progress': joinedInProgress,
-        'joined_at': joinedAt.toIso8601String(),
+        'joined_at': joinedAt?.toIso8601String(),
         'left_at': leftAt?.toIso8601String(),
-        'presence': presence.toJson(),
+        'presence': presence?.toJson(),
       };
 
   @override
@@ -38,8 +42,8 @@ class Participation {
 }
 
 class Presence {
-  bool beginning;
-  bool completion;
+  bool? beginning;
+  bool? completion;
 
   Presence({
     required this.beginning,

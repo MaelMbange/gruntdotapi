@@ -47,13 +47,14 @@ enum SGameVariant {
 }
 
 class DefaultMode {
-  Map<String, dynamic> content;
+  Map<String, dynamic>? content;
   static const specificExcluded = ['assists', 'deaths', 'kda', 'kills'];
 
   DefaultMode({required this.content});
 
   Map<String, dynamic>? get modespecific {
-    Map<String, dynamic> result = Map<String, dynamic>.from(content);
+    if (content == null) return null;
+    Map<String, dynamic> result = Map<String, dynamic>.from(content!);
     result.removeWhere((key, value) => specificExcluded.contains(key));
     return result;
   }
@@ -62,7 +63,7 @@ class DefaultMode {
     return DefaultMode(content: json);
   }
 
-  Map<String, dynamic> toJson() => content;
+  Map<String, dynamic>? toJson() => content;
 
   @override
   String toString() => 'content: $content';

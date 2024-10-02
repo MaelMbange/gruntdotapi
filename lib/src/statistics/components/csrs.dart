@@ -1,13 +1,13 @@
 part of 'progression.dart';
 
 class CSRS {
-  String id;
-  String name;
-  CSRSProperties properties;
+  String? id;
+  String? name;
+  CSRSProperties? properties;
 
-  CSR current;
-  CSR season;
-  CSR allTime;
+  CSR? current;
+  CSR? season;
+  CSR? allTime;
 
   CSRS({
     required this.id,
@@ -22,10 +22,12 @@ class CSRS {
     return CSRS(
       id: json['id'],
       name: json['name'],
-      properties: CSRSProperties.fromJson(json['properties']),
-      current: CSR.fromJson(json['response']['current']),
-      season: CSR.fromJson(json['response']['season']),
-      allTime: CSR.fromJson(json['response']['all_time']),
+      properties: json['properties'] != null
+          ? CSRSProperties.fromJson(json['properties'])
+          : null,
+      current: json['current'] != null ? CSR.fromJson(json['current']) : null,
+      season: json['season'] != null ? CSR.fromJson(json['season']) : null,
+      allTime: json['all_time'] != null ? CSR.fromJson(json['all_time']) : null,
     );
   }
 
@@ -33,11 +35,11 @@ class CSRS {
     return {
       'id': id,
       'name': name,
-      'properties': properties.toJson(),
+      'properties': properties?.toJson(),
       'response': {
-        'current': current.toJson(),
-        'season': season.toJson(),
-        'all_time': allTime.toJson(),
+        'current': current?.toJson(),
+        'season': season?.toJson(),
+        'all_time': allTime?.toJson(),
       },
     };
   }
@@ -48,9 +50,9 @@ class CSRS {
 }
 
 class CSRSProperties {
-  String queue;
-  String input;
-  String experience;
+  String? queue;
+  String? input;
+  String? experience;
 
   CSRSProperties({
     required this.queue,

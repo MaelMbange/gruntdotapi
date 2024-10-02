@@ -4,10 +4,10 @@
 library;
 
 class Enginevariant {
-  final String id;
-  final String name;
-  final String hash;
-  final String icon;
+  final String? id;
+  final String? name;
+  final String? hash;
+  final String? icon;
 
   Enginevariant({
     required this.id,

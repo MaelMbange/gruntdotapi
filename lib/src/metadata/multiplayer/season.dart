@@ -4,20 +4,20 @@
 library;
 
 class MSeason {
-  final int id;
-  final int version;
-  final String name;
-  final String description;
-  final String narrativeBlurp;
+  final int? id;
+  final int? version;
+  final String? name;
+  final String? description;
+  final String? narrativeBlurp;
 
-  final String seasonLogo;
-  final String cardBackground;
-  final String challengesBackground;
-  final String battlepassBackground;
-  final String storefrontBackground;
+  final String? seasonLogo;
+  final String? cardBackground;
+  final String? challengesBackground;
+  final String? battlepassBackground;
+  final String? storefrontBackground;
 
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   MSeason({
     required this.id,
@@ -45,8 +45,12 @@ class MSeason {
         challengesBackground: json['image_urls']['challenges_background'],
         battlepassBackground: json['image_urls']['battlepass_background'],
         storefrontBackground: json['image_urls']['storefront_background'],
-        startDate: DateTime.parse(json['availability'][0]['start_date']),
-        endDate: DateTime.parse(json['availability'][0]['end_date']),
+        startDate: json['availability'][0]['start_date'] != null
+            ? DateTime.parse(json['availability'][0]['start_date'])
+            : null,
+        endDate: json['availability'][0]['end_date'] != null
+            ? DateTime.parse(json['availability'][0]['end_date'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,8 +68,8 @@ class MSeason {
         },
         'availability': [
           {
-            'start_date': startDate.toIso8601String(),
-            'end_date': endDate.toIso8601String(),
+            'start_date': startDate?.toIso8601String(),
+            'end_date': endDate?.toIso8601String(),
           }
         ],
       };

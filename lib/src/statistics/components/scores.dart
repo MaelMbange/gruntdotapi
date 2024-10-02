@@ -1,8 +1,8 @@
 library;
 
 class Scores {
-  int personal;
-  int points;
+  int? personal;
+  int? points;
 
   Scores({
     required this.personal,

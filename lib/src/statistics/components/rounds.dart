@@ -1,9 +1,9 @@
 library;
 
 class Rounds {
-  int won;
-  int lost;
-  int tied;
+  int? won;
+  int? lost;
+  int? tied;
 
   Rounds({
     required this.won,

@@ -1,8 +1,8 @@
 library;
 
 class Damage {
-  int taken;
-  int dealt;
+  int? taken;
+  int? dealt;
 
   Damage({
     required this.taken,

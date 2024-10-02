@@ -1,8 +1,8 @@
 import 'package:gruntdotapi/gruntdotapi.dart';
 
 class CareerRank {
-  Level level;
-  MCareerRank current;
+  Level? level;
+  MCareerRank? current;
   MCareerRank? next;
 
   CareerRank({
@@ -13,16 +13,18 @@ class CareerRank {
 
   factory CareerRank.fromJson(Map<String, dynamic> json) {
     return CareerRank(
-      level: Level.fromJson(json['level']),
-      current: MCareerRank.fromJson(json['current']),
+      level: json['level'] != null ? Level.fromJson(json['level']) : null,
+      current: json['current'] != null
+          ? MCareerRank.fromJson(json['current'])
+          : null,
       next: json['next'] != null ? MCareerRank.fromJson(json['next']) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'level': level.toJson(),
-      'current': current.toJson(),
+      'level': level?.toJson(),
+      'current': current?.toJson(),
       'next': next?.toJson(),
     };
   }
@@ -32,9 +34,9 @@ class CareerRank {
 }
 
 class Level {
-  int totalXP;
-  int remainingXpToNextLevel;
-  int nextLevelThreshold;
+  int? totalXP;
+  int? remainingXpToNextLevel;
+  int? nextLevelThreshold;
 
   Level({
     required this.totalXP,

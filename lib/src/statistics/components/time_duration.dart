@@ -1,8 +1,8 @@
 library;
 
 class TimeDuration {
-  int seconds;
-  String human;
+  int? seconds;
+  String? human;
 
   TimeDuration({
     required this.seconds,

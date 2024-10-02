@@ -47,9 +47,9 @@ abstract class MatchDefaults implements Comparable<MatchDefaults> {
 }
 
 class MatchProperties {
-  String type;
-  String interaction;
-  String experience;
+  String? type;
+  String? interaction;
+  String? experience;
 
   MatchProperties({
     required this.type,
@@ -76,9 +76,9 @@ class MatchProperties {
 }
 
 class MatchSeason {
-  int id;
-  int version;
-  MatchSeasonProperties properties;
+  int? id;
+  int? version;
+  MatchSeasonProperties? properties;
 
   MatchSeason({
     required this.id,
@@ -89,13 +89,15 @@ class MatchSeason {
   factory MatchSeason.fromJson(Map<String, dynamic> json) => MatchSeason(
         id: json['id'],
         version: json['version'],
-        properties: MatchSeasonProperties.fromJson(json['properties']),
+        properties: json['properties'] != null
+            ? MatchSeasonProperties.fromJson(json['properties'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'version': version,
-        'properties': properties.toJson(),
+        'properties': properties?.toJson(),
       };
 
   @override
@@ -103,8 +105,8 @@ class MatchSeason {
 }
 
 class MatchSeasonProperties {
-  String identifier;
-  String csr;
+  String? identifier;
+  String? csr;
 
   MatchSeasonProperties({
     required this.identifier,
@@ -127,7 +129,7 @@ class MatchSeasonProperties {
 }
 
 class Match extends MatchDefaults {
-  final Player player;
+  final Player? player;
 
   Match({
     required super.id,
@@ -150,7 +152,7 @@ class Match extends MatchDefaults {
         season: json['season'] != null
             ? MatchSeason.fromJson(json['season'])
             : null,
-        player: Player.fromJson(json['player']),
+        player: json['player'] != null ? Player.fromJson(json['player']) : null,
         playableDuration: json['playable_duration'] != null
             ? TimeDuration.fromJson(json['playable_duration'])
             : null,
@@ -163,7 +165,7 @@ class Match extends MatchDefaults {
         'details': details?.toJson(),
         'properties': properties?.toJson(),
         'season': season?.toJson(),
-        'player': player.toJson(),
+        'player': player?.toJson(),
         'playable_duration': playableDuration?.toJson(),
         'started_at': startedAt.toIso8601String(),
         'ended_at': endedAt.toIso8601String(),
@@ -187,8 +189,8 @@ class Match extends MatchDefaults {
 }
 
 class MatchStats extends MatchDefaults {
-  final List<STeam> teams;
-  final List<Player> players;
+  final List<STeam>? teams;
+  final List<Player>? players;
 
   MatchStats({
     required super.id,
@@ -209,9 +211,12 @@ class MatchStats extends MatchDefaults {
         properties: json['properties'] != null
             ? MatchProperties.fromJson(json['properties'])
             : null,
-        teams: List<STeam>.from(json['teams'].map((x) => STeam.fromJson(x))),
-        players:
-            List<Player>.from(json['players'].map((x) => Player.fromJson(x))),
+        teams: json['teams'] != null
+            ? List<STeam>.from(json['teams'].map((x) => STeam.fromJson(x)))
+            : null,
+        players: json['players'] != null
+            ? List<Player>.from(json['players'].map((x) => Player.fromJson(x)))
+            : null,
         season: json['season'] != null
             ? MatchSeason.fromJson(json['season'])
             : null,
@@ -226,8 +231,8 @@ class MatchStats extends MatchDefaults {
         'id': id,
         'details': details?.toJson(),
         'properties': properties?.toJson(),
-        'teams': teams.map((team) => team.toJson()).toList(),
-        'players': players.map((player) => player.toJson()).toList(),
+        'teams': teams?.map((team) => team.toJson()).toList(),
+        'players': players?.map((player) => player.toJson()).toList(),
         'season': season?.toJson(),
         'playable_duration': playableDuration?.toJson(),
         'started_at': startedAt.toIso8601String(),

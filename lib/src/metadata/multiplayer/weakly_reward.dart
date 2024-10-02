@@ -5,19 +5,19 @@ library;
 
 class WeaklyReward {
   /// Title of the weakly reward
-  final String title;
+  final String? title;
 
   /// Description of the weakly reward/objectif to reach to validate the weakly reward
-  final String description;
+  final String? description;
 
   /// Difficulty of the weakly reward
-  final String difficulty;
+  final String? difficulty;
 
   /// Threshold for success of the weakly reward (amount needed to validate the weakly reward)
-  final int thresholdForSuccess;
+  final int? thresholdForSuccess;
 
   /// List of items that can be won by completing the weakly reward
-  final List<WeaklyRewardItem> items;
+  final List<WeaklyRewardItem>? items;
 
   WeaklyReward({
     required this.title,
@@ -33,8 +33,10 @@ class WeaklyReward {
       description: json['description'],
       difficulty: json['attributes']['difficulty'],
       thresholdForSuccess: json['properties']['threshold_for_success'],
-      items: List<WeaklyRewardItem>.from(
-          json['items'].map((item) => WeaklyRewardItem.fromJson(item))),
+      items: json['items'] != null
+          ? List<WeaklyRewardItem>.from(
+              json['items'].map((item) => WeaklyRewardItem.fromJson(item)))
+          : null,
     );
   }
 
@@ -48,7 +50,7 @@ class WeaklyReward {
       'properties': {
         'threshold_for_success': thresholdForSuccess,
       },
-      'items': items.map((item) => item.toJson()).toList(),
+      'items': items?.map((item) => item.toJson()).toList(),
     };
   }
 
@@ -59,16 +61,16 @@ class WeaklyReward {
 
 class WeaklyRewardItem {
   /// ID of the item
-  final int id;
+  final int? id;
 
   /// Title of the item
-  final String title;
+  final String? title;
 
   /// Description of the item
-  final String description;
+  final String? description;
 
   /// URL to the image of the item
-  final String imageUrls;
+  final String? imageUrls;
 
   WeaklyRewardItem({
     required this.id,

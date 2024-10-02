@@ -1,10 +1,10 @@
 library;
 
 class Shots {
-  int fired;
-  int hit;
-  int missed;
-  num accuracy;
+  int? fired;
+  int? hit;
+  int? missed;
+  num? accuracy;
 
   Shots({
     required this.fired,

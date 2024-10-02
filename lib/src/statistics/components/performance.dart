@@ -1,8 +1,8 @@
 library;
 
 class Performances {
-  PerformanceStats kills;
-  PerformanceStats deaths;
+  PerformanceStats? kills;
+  PerformanceStats? deaths;
 
   Performances({
     required this.kills,
@@ -10,13 +10,17 @@ class Performances {
   });
 
   factory Performances.fromJson(Map<String, dynamic> json) => Performances(
-        kills: PerformanceStats.fromJson(json['kills']),
-        deaths: PerformanceStats.fromJson(json['deaths']),
+        kills: json.containsKey('kills')
+            ? PerformanceStats.fromJson(json['kills'])
+            : null,
+        deaths: json.containsKey('deaths')
+            ? PerformanceStats.fromJson(json['deaths'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        'kills': kills.toJson(),
-        'deaths': deaths.toJson(),
+        'kills': kills?.toJson(),
+        'deaths': deaths?.toJson(),
       };
 }
 

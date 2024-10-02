@@ -1,7 +1,7 @@
 library;
 
 class Attributes {
-  bool resolved;
+  bool? resolved;
 
   Attributes({this.resolved = false});
 

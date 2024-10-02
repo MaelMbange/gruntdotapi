@@ -5,28 +5,28 @@ library;
 
 class MMedal {
   /// id of the medal.
-  final int id;
+  final int? id;
 
   /// name of the medal.
-  final String name;
+  final String? name;
 
   /// description of the medal.
-  final String description;
+  final String? description;
 
   /// url of the small image of the medal.
-  final String small;
+  final String? small;
 
   /// url of the medium image of the medal.
-  final String medium;
+  final String? medium;
 
   /// url of the large image of the medal.
-  final String large;
+  final String? large;
 
   /// difficulty of the medal, can be used to set the color of the medal background.
-  final String difficulty;
+  final String? difficulty;
 
   /// type of the medal.
-  final String type;
+  final String? type;
 
   MMedal({
     required this.id,

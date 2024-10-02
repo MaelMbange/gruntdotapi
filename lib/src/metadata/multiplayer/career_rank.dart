@@ -5,16 +5,16 @@ library;
 
 class MCareerRank {
   /// Rank of the career
-  final int rank;
+  final int? rank;
 
   /// Title of the career rank
-  final String title;
+  final String? title;
 
   /// Title of the career rank (generally the name of the rank: exemple: "Bronze-...-Onyx")
-  final String subtitle;
+  final String? subtitle;
 
   /// Icon of the career rank
-  final String icon;
+  final String? icon;
 
   /// Large icon of the career rank
   final String? largeIcon;
@@ -26,16 +26,16 @@ class MCareerRank {
   final int? tier;
 
   /// Grade of the career rank (generally 3 grade per rank)
-  final int grade;
+  final int? grade;
 
   /// Colors of the career rank (maincolor and secondary color)
-  final List<String> colors;
+  final List<String>? colors;
 
   /// Type of the career rank - is the name of the rank level (Bronze-...-Onyx)
-  final String type;
+  final String? type;
 
   /// Quantity of experience points needed to reach this rank
-  final int threshold;
+  final int? threshold;
 
   MCareerRank({
     required this.rank,
@@ -61,8 +61,10 @@ class MCareerRank {
       adornmentIcon: json['image_urls']['adornment_icon'],
       tier: json['attributes']['tier'],
       grade: json['attributes']['grade'],
-      colors:
-          List<String>.from(json['attributes']['colors'].map((color) => color)),
+      colors: json['attributes']['colors'] != null
+          ? List<String>.from(
+              json['attributes']['colors'].map((color) => color))
+          : null,
       type: json['properties']['type'],
       threshold: json['properties']['threshold'],
     );

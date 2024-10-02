@@ -107,7 +107,7 @@ Future<void> test2() async {
       matches.sort();
       Match element = matches.first;
       print(
-          '${element.details?.ugcGameVariant.name.toString().padRight(25)} : ${element.details?.playlist?.ranked.toString().padRight(5)} : ${element.startedAt.day}/${element.startedAt.month}/${element.startedAt.year} - ${element.startedAt.hour.toString().padLeft(2, '0')}h${element.startedAt.minute.toString().padLeft(2, '0')}');
+          '${element.details?.ugcGameVariant?.name.toString().padRight(25)} : ${element.details?.playlist?.ranked.toString().padRight(5)} : ${element.startedAt.day}/${element.startedAt.month}/${element.startedAt.year} - ${element.startedAt.hour.toString().padLeft(2, '0')}h${element.startedAt.minute.toString().padLeft(2, '0')}');
     }
   } catch (e) {
     print(e.toString());
@@ -126,7 +126,7 @@ Future<void> test3() async {
               authenticationKey: accessToken,
               gamertag: 'icecurim',
               filter: 'all')
-          .then((value) => print(jsonEncode(value.stats.modes.toJson())));
+          .then((value) => print(jsonEncode(value.stats?.modes?.toJson())));
     }
   } catch (e) {
     print(e);

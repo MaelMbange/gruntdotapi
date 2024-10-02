@@ -9,15 +9,15 @@ import 'summary.dart';
 import 'time_duration.dart';
 
 class Core {
-  Summary summary;
-  Damage damage;
-  Shots shots;
-  Rounds rounds;
-  Breakdown breakdown;
-  num kdr;
-  num kda;
+  Summary? summary;
+  Damage? damage;
+  Shots? shots;
+  Rounds? rounds;
+  Breakdown? breakdown;
+  num? kdr;
+  num? kda;
   TimeDuration? averageLifeDuration;
-  Scores scores;
+  Scores? scores;
 
   Core({
     required this.summary,
@@ -32,29 +32,32 @@ class Core {
   });
 
   factory Core.fromJson(Map<String, dynamic> json) => Core(
-        summary: Summary.fromJson(json['summary']),
-        damage: Damage.fromJson(json['damage']),
-        shots: Shots.fromJson(json['shots']),
-        rounds: Rounds.fromJson(json['rounds']),
-        breakdown: Breakdown.fromJson(json['breakdown']),
+        summary:
+            json['summary'] != null ? Summary.fromJson(json['summary']) : null,
+        damage: json['damage'] != null ? Damage.fromJson(json['damage']) : null,
+        shots: json['shots'] != null ? Shots.fromJson(json['shots']) : null,
+        rounds: json['rounds'] != null ? Rounds.fromJson(json['rounds']) : null,
+        breakdown: json['breakdown'] != null
+            ? Breakdown.fromJson(json['breakdown'])
+            : null,
         kdr: json['kdr'] as num,
         kda: json['kda'] as num,
         averageLifeDuration: json['average_life_duration'] != null
             ? TimeDuration.fromJson(json['average_life_duration'])
             : null,
-        scores: Scores.fromJson(json['scores']),
+        scores: json['scores'] != null ? Scores.fromJson(json['scores']) : null,
       );
 
   Map<String, dynamic> toJson() => {
-        'summary': summary.toJson(),
-        'damage': damage.toJson(),
-        'shots': shots.toJson(),
-        'rounds': rounds.toJson(),
-        'breakdown': breakdown.toJson(),
+        'summary': summary?.toJson(),
+        'damage': damage?.toJson(),
+        'shots': shots?.toJson(),
+        'rounds': rounds?.toJson(),
+        'breakdown': breakdown?.toJson(),
         'kdr': kdr,
         'kda': kda,
         'average_life_duration': averageLifeDuration?.toJson(),
-        'scores': scores.toJson(),
+        'scores': scores?.toJson(),
       };
 
   @override

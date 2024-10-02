@@ -1,9 +1,9 @@
 class Article {
-  final String headline;
-  final String shortHeadline;
-  final String content;
-  final String imageUrl;
-  final List<Action> actions;
+  final String? headline;
+  final String? shortHeadline;
+  final String? content;
+  final String? imageUrl;
+  final List<Action>? actions;
 
   Article({
     required this.headline,
@@ -18,8 +18,10 @@ class Article {
         shortHeadline: json['short_headline'],
         content: json['content'],
         imageUrl: json['image_url'],
-        actions: List<Action>.from(
-            json['actions'].map((action) => Action.fromJson(action))),
+        actions: json['actions'] != null
+            ? List<Action>.from(
+                json['actions'].map((action) => Action.fromJson(action)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,14 +29,14 @@ class Article {
         'short_headline': shortHeadline,
         'content': content,
         'image_url': imageUrl,
-        'actions': actions.map((action) => action.toJson()).toList(),
+        'actions': actions?.map((action) => action.toJson()).toList(),
       };
 }
 
 class Action {
-  final String title;
-  final String description;
-  final String url;
+  final String? title;
+  final String? description;
+  final String? url;
 
   Action({
     required this.title,

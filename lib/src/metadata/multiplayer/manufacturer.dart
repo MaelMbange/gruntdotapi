@@ -5,13 +5,13 @@ library;
 
 class Manufacturer {
   /// ID of the manufacturer
-  final int id;
+  final int? id;
 
   /// Name of the manufacturer
-  final String name;
+  final String? name;
 
   /// URL to the logo of the manufacturer
-  final String logo;
+  final String? logo;
 
   Manufacturer({
     required this.id,

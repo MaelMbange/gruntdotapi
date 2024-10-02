@@ -4,7 +4,7 @@ class StoreOffering {
   final String? name;
   final String? description;
   final String? imageUrl;
-  final List<StoreOfferingItem> items;
+  final List<StoreOfferingItem>? items;
 
   StoreOffering({
     this.name,
@@ -17,8 +17,10 @@ class StoreOffering {
         name: json['name'],
         description: json['description'],
         imageUrl: json['image_urls']['offering'],
-        items: List<StoreOfferingItem>.from(
-            json['items'].map((item) => StoreOfferingItem.fromJson(item))),
+        items: json['items'] != null
+            ? List<StoreOfferingItem>.from(
+                json['items'].map((item) => StoreOfferingItem.fromJson(item)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,7 +29,7 @@ class StoreOffering {
         'image_urls': {
           'offering': imageUrl,
         },
-        'items': items.map((item) => item.toJson()).toList(),
+        'items': items?.map((item) => item.toJson()).toList(),
       };
 
   @override

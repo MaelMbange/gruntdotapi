@@ -4,9 +4,9 @@
 library;
 
 class MMapClass {
-  final String id;
-  final String name;
-  final String thumbnail;
+  final String? id;
+  final String? name;
+  final String? thumbnail;
 
   MMapClass({
     required this.id,

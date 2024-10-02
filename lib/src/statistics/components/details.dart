@@ -12,8 +12,8 @@ import 'image_urls.dart';
 /// [SPlaylist] is used to represent the details of the playlist of the match.
 
 class SDetails {
-  SMapClass map;
-  SUGCGameVariant ugcGameVariant;
+  SMapClass? map;
+  SUGCGameVariant? ugcGameVariant;
   SPlaylist? playlist;
 
   SDetails({
@@ -23,16 +23,18 @@ class SDetails {
   });
 
   factory SDetails.fromJson(Map<String, dynamic> json) => SDetails(
-        map: SMapClass.fromJson(json['map']),
-        ugcGameVariant: SUGCGameVariant.fromJson(json['ugcgamevariant']),
+        map: json['map'] != null ? SMapClass.fromJson(json['map']) : null,
+        ugcGameVariant: json['ugcgamevariant'] != null
+            ? SUGCGameVariant.fromJson(json['ugcgamevariant'])
+            : null,
         playlist: json['playlist'] != null
             ? SPlaylist.fromJson(json['playlist'])
             : null,
       );
 
   Map<String, dynamic> toJson() => {
-        'map': map.toJson(),
-        'ugcgamevariant': ugcGameVariant.toJson(),
+        'map': map?.toJson(),
+        'ugcgamevariant': ugcGameVariant?.toJson(),
         'playlist': playlist?.toJson(),
       };
 
@@ -42,10 +44,10 @@ class SDetails {
 }
 
 abstract class _DetailBase {
-  String id;
-  String version;
-  String name;
-  ImageUrls imageUrls;
+  String? id;
+  String? version;
+  String? name;
+  ImageUrls? imageUrls;
 
   _DetailBase({
     required this.id,
@@ -60,8 +62,8 @@ abstract class _DetailBase {
 }
 
 class SMapClass extends _DetailBase {
-  String levelID;
-  String ownerType;
+  String? levelID;
+  String? ownerType;
 
   SMapClass({
     required super.id,
@@ -76,7 +78,9 @@ class SMapClass extends _DetailBase {
         id: json['id'],
         version: json['version'],
         name: json['name'],
-        imageUrls: ImageUrls.fromJson(json['image_urls']),
+        imageUrls: json['image_urls'] != null
+            ? ImageUrls.fromJson(json['image_urls'])
+            : null,
         levelID: json['properties']['level_id'],
         ownerType: json['properties']['owner_type'],
       );
@@ -85,7 +89,7 @@ class SMapClass extends _DetailBase {
         'id': id,
         'version': version,
         'name': name,
-        'image_urls': imageUrls.toJson(),
+        'image_urls': imageUrls?.toJson(),
         'properties': {
           'level_id': levelID,
           'owner_type': ownerType,
@@ -98,9 +102,9 @@ class SMapClass extends _DetailBase {
 }
 
 class SUGCGameVariant extends _DetailBase {
-  int categoryID;
-  String engineVariantID;
-  String ownerType;
+  int? categoryID;
+  String? engineVariantID;
+  String? ownerType;
 
   SUGCGameVariant({
     required super.id,
@@ -117,7 +121,9 @@ class SUGCGameVariant extends _DetailBase {
         id: json['id'],
         version: json['version'],
         name: json['name'],
-        imageUrls: ImageUrls.fromJson(json['image_urls']),
+        imageUrls: json['image_urls'] != null
+            ? ImageUrls.fromJson(json['image_urls'])
+            : null,
         categoryID: json['properties']['category_id'],
         engineVariantID: json['properties']['engine_variant_id'],
         ownerType: json['properties']['owner_type'],
@@ -127,7 +133,7 @@ class SUGCGameVariant extends _DetailBase {
         'id': id,
         'version': version,
         'name': name,
-        'image_urls': imageUrls.toJson(),
+        'image_urls': imageUrls?.toJson(),
         'properties': {
           'category_id': categoryID,
           'engine_variant_id': engineVariantID,
@@ -141,13 +147,13 @@ class SUGCGameVariant extends _DetailBase {
 }
 
 class SPlaylist extends _DetailBase {
-  bool active;
-  bool featured;
-  bool ranked;
+  bool? active;
+  bool? featured;
+  bool? ranked;
 
-  String queue;
-  String input;
-  String experience;
+  String? queue;
+  String? input;
+  String? experience;
 
   SPlaylist({
     required super.id,
@@ -166,7 +172,9 @@ class SPlaylist extends _DetailBase {
         id: json['id'],
         version: json['version'],
         name: json['name'],
-        imageUrls: ImageUrls.fromJson(json['image_urls']),
+        imageUrls: json['image_urls'] != null
+            ? ImageUrls.fromJson(json['image_urls'])
+            : null,
         active: json['attributes']['active'],
         featured: json['attributes']['featured'],
         ranked: json['attributes']['ranked'],
@@ -179,7 +187,7 @@ class SPlaylist extends _DetailBase {
         'id': id,
         'version': version,
         'name': name,
-        'image_urls': imageUrls.toJson(),
+        'image_urls': imageUrls?.toJson(),
         'attributes': {
           'active': active,
           'featured': featured,

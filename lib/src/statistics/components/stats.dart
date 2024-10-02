@@ -4,7 +4,7 @@ import 'core.dart';
 import 'mode.dart';
 
 class Stats {
-  Core core;
+  Core? core;
   DefaultMode? mode;
   num? mmr;
 
@@ -15,13 +15,13 @@ class Stats {
   });
 
   factory Stats.fromJson(Map<String, dynamic> json) => Stats(
-        core: Core.fromJson(json['core']),
+        core: json['core'] != null ? Core.fromJson(json['core']) : null,
         mode: json['mode'] != null ? DefaultMode.fromJson(json['mode']) : null,
         mmr: json['mmr'],
       );
 
   Map<String, dynamic> toJson() => {
-        'core': core.toJson(),
+        'core': core?.toJson(),
         'mode': mode?.toJson(),
         'mmr': mmr?.toString(),
       };
@@ -31,8 +31,8 @@ class Stats {
 }
 
 class StatsMatchMade {
-  Core core;
-  Modes modes;
+  Core? core;
+  Modes? modes;
 
   StatsMatchMade({
     required this.core,
@@ -40,13 +40,13 @@ class StatsMatchMade {
   });
 
   factory StatsMatchMade.fromJson(Map<String, dynamic> json) => StatsMatchMade(
-        core: Core.fromJson(json['core']),
-        modes: Modes.fromJson(json['modes']),
+        core: json['core'] != null ? Core.fromJson(json['core']) : null,
+        modes: json['modes'] != null ? Modes.fromJson(json['modes']) : null,
       );
 
   Map<String, dynamic> toJson() => {
-        'core': core.toJson(),
-        'modes': modes.toJson(),
+        'core': core?.toJson(),
+        'modes': modes?.toJson(),
       };
 
   @override

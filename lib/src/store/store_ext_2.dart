@@ -1,7 +1,7 @@
 part of 'store.dart';
 
 class StoreOfferingItem {
-  final String imageUrl;
+  final String? imageUrl;
 
   StoreOfferingItem({required this.imageUrl});
 
