@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 class Statistics {
   /// [type] in {all, matchmaking, custom, local}
   static Future<List<Match>> loadMatches({
+    String? route,
     required ApiKey authenticationKey,
     required String gamertag,
     String type = 'matchmaking',
@@ -15,7 +16,7 @@ class Statistics {
     }
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.playerMatches
+        route: (route ?? Routes.playerMatches)
             .replaceAll('{gamertag}', gamertag)
             .replaceAll('{type}', type)
             .replaceAll('{offset}', offset.toString())
@@ -27,11 +28,12 @@ class Statistics {
   }
 
   static Future<MatchStats> loadMatchStats({
+    String? route,
     required ApiKey authenticationKey,
     required String matchId,
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.matchStats.replaceAll('{matchId}', matchId),
+        route: (route ?? Routes.matchStats).replaceAll('{matchId}', matchId),
         authenticationKey: authenticationKey);
 
     return Gruntdotapi.fetchResponse(
@@ -40,12 +42,13 @@ class Statistics {
 
   ///[filter] in {all, ranked, social}
   static Future<MatchMade> loadGlobalStatistics({
+    String? route,
     required ApiKey authenticationKey,
     required String gamertag,
     String filter = 'all',
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.playerGlobalStats
+        route: (route ?? Routes.playerGlobalStats)
             .replaceAll('{gamertag}', gamertag)
             .replaceAll('{filter}', filter),
         authenticationKey: authenticationKey);
@@ -55,11 +58,13 @@ class Statistics {
   }
 
   static Future<Appearance> loadAppearance({
+    String? route,
     required ApiKey authenticationKey,
     required String gamertag,
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.playerAppearance.replaceAll('{gamertag}', gamertag),
+        route: (route ?? Routes.playerAppearance)
+            .replaceAll('{gamertag}', gamertag),
         authenticationKey: authenticationKey);
 
     return Gruntdotapi.fetchResponse(
@@ -67,11 +72,12 @@ class Statistics {
   }
 
   static Future<List<CSRS>> loadCSRS({
+    String? route,
     required ApiKey authenticationKey,
     required String gamertag,
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.playerCsrs.replaceAll('{gamertag}', gamertag),
+        route: (route ?? Routes.playerCsrs).replaceAll('{gamertag}', gamertag),
         authenticationKey: authenticationKey);
 
     return Gruntdotapi.fetchResponse(
@@ -79,11 +85,13 @@ class Statistics {
   }
 
   static Future<CareerRank> loadCareerRank({
+    String? route,
     required ApiKey authenticationKey,
     required String gamertag,
   }) async {
     var response = await Gruntdotapi.request(
-        route: Routes.playerCareerRank.replaceAll('{gamertag}', gamertag),
+        route: (route ?? Routes.playerCareerRank)
+            .replaceAll('{gamertag}', gamertag),
         authenticationKey: authenticationKey);
 
     return Gruntdotapi.fetchResponse(
