@@ -53,11 +53,12 @@ abstract class Metadata {
   }
 
   static Future<List<Category>> loadCategories(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (categories.isNotEmpty) return categories;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.categories, authenticationKey: authenticationKey);
+        route: (route ?? Routes.categories),
+        authenticationKey: authenticationKey);
 
     categories = Gruntdotapi.fetchResponse(
         response: response, fromJson: Category.fromJson);
@@ -66,11 +67,12 @@ abstract class Metadata {
   }
 
   static Future<List<Enginevariant>> loadEngineVariants(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (engineVariants.isNotEmpty) return engineVariants;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.engineVariants, authenticationKey: authenticationKey);
+        route: (route ?? Routes.engineVariants),
+        authenticationKey: authenticationKey);
 
     engineVariants = Gruntdotapi.fetchResponse(
         response: response, fromJson: Enginevariant.fromJson);
@@ -79,11 +81,11 @@ abstract class Metadata {
   }
 
   static Future<List<MMapClass>> loadMaps(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (maps.isNotEmpty) return maps;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.maps, authenticationKey: authenticationKey);
+        route: (route ?? Routes.maps), authenticationKey: authenticationKey);
 
     maps = Gruntdotapi.fetchResponse(
         response: response, fromJson: MMapClass.fromJson);
@@ -92,11 +94,12 @@ abstract class Metadata {
   }
 
   static Future<List<Currency>> loadCurrencies(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (currencies.isNotEmpty) return currencies;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.currencies, authenticationKey: authenticationKey);
+        route: (route ?? Routes.currencies),
+        authenticationKey: authenticationKey);
 
     currencies = Gruntdotapi.fetchResponse(
         response: response, fromJson: Currency.fromJson);
@@ -105,11 +108,12 @@ abstract class Metadata {
   }
 
   static Future<List<MCareerRank>> loadCareerRanks(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (careerRanks.isNotEmpty) return careerRanks;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.careerRanks, authenticationKey: authenticationKey);
+        route: (route ?? Routes.careerRanks),
+        authenticationKey: authenticationKey);
 
     careerRanks = Gruntdotapi.fetchResponse(
         response: response, fromJson: MCareerRank.fromJson);
@@ -118,11 +122,12 @@ abstract class Metadata {
   }
 
   static Future<List<Manufacturer>> loadManufacturers(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (manufacturers.isNotEmpty) return manufacturers;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.manufacturers, authenticationKey: authenticationKey);
+        route: (route ?? Routes.manufacturers),
+        authenticationKey: authenticationKey);
 
     manufacturers = Gruntdotapi.fetchResponse(
         response: response, fromJson: Manufacturer.fromJson);
@@ -131,11 +136,12 @@ abstract class Metadata {
   }
 
   static Future<WeaklyReward?> loadWeaklyReward(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (weaklyReward != null) return weaklyReward;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.weeklyReward, authenticationKey: authenticationKey);
+        route: (route ?? Routes.weeklyReward),
+        authenticationKey: authenticationKey);
 
     weaklyReward = Gruntdotapi.fetchResponse(
         response: response, fromJson: WeaklyReward.fromJson);
@@ -144,11 +150,11 @@ abstract class Metadata {
   }
 
   static Future<List<MSeason>> loadSeasons(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (seasons.isNotEmpty) return seasons;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.seasons, authenticationKey: authenticationKey);
+        route: (route ?? Routes.seasons), authenticationKey: authenticationKey);
 
     seasons = Gruntdotapi.fetchResponse(
         response: response, fromJson: MSeason.fromJson);
@@ -157,11 +163,11 @@ abstract class Metadata {
   }
 
   static Future<List<MTeam>> loadTeams(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (teams.isNotEmpty) return teams;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.teams, authenticationKey: authenticationKey);
+        route: (route ?? Routes.teams), authenticationKey: authenticationKey);
 
     teams =
         Gruntdotapi.fetchResponse(response: response, fromJson: MTeam.fromJson);
@@ -170,11 +176,11 @@ abstract class Metadata {
   }
 
   static Future<List<MMedal>> loadMedals(
-      {required ApiKey authenticationKey}) async {
+      {String? route, ApiKey? authenticationKey}) async {
     if (medals.isNotEmpty) return medals;
 
     http.Response response = await Gruntdotapi.request(
-        route: Routes.medals, authenticationKey: authenticationKey);
+        route: (route ?? Routes.medals), authenticationKey: authenticationKey);
 
     medals = Gruntdotapi.fetchResponse(
         response: response, fromJson: MMedal.fromJson);
