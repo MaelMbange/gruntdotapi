@@ -18,7 +18,19 @@ export 'src/routes.dart';
 export 'src/statistics.dart';
 export 'src/metadata.dart';
 
+/// Main entry point for the Gruntdotapi package.
+///
+/// This library provides API access, data models, and utilities for interacting with the Halo Infinite DotAPI.
+///
+/// Exports all major modules, including metadata, statistics, store, exceptions, and API key management.
 abstract class Gruntdotapi {
+  /// Sends a GET request to the specified [route].
+  ///
+  /// [route]: The API endpoint URL.
+  /// [headers]: Optional HTTP headers.
+  /// [authenticationKey]: Optional API key for authentication and rate limit tracking.
+  ///
+  /// Returns an [http.Response] from the API.
   static Future<http.Response> request({
     required String route,
     Map<String, dynamic>? headers,

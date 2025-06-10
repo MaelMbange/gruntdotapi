@@ -1,5 +1,6 @@
 library;
 
+/// Represents a player's appearance, including service tag, emblem, nameplate, backdrop, and action pose.
 class Appearance {
   String serviceTag;
   String emblem;

@@ -1,5 +1,8 @@
 library routes;
 
+/// Contains static route definitions for all API endpoints used by the Gruntdotapi package.
+//
+/// Each route is a formatted string with placeholders for parameters such as gamertag, matchId, etc.
 abstract class Routes {
   static final String _base = 'https://grunt.api.dotapi.gg';
 

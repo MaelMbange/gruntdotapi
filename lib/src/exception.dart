@@ -1,3 +1,4 @@
+/// Exception thrown when authentication is missing or invalid.
 class UnAuthorizedException implements Exception {
   final String message;
 
@@ -9,6 +10,7 @@ class UnAuthorizedException implements Exception {
       'Unauthorized - ${message.replaceFirst('Unauthorized - ', '')}';
 }
 
+/// Exception thrown when the API rate limit is exceeded.
 class TooManyRequestsException implements Exception {
   final String message;
 
@@ -20,6 +22,7 @@ class TooManyRequestsException implements Exception {
       'TooManyRequests - ${message.replaceFirst('TooManyRequests - ', '')}';
 }
 
+/// Exception thrown when a bad argument is provided to an API call.
 class BadArgumentException implements Exception {
   final String message;
 
@@ -30,6 +33,7 @@ class BadArgumentException implements Exception {
       'BadArgument - ${message.replaceFirst('BadArgument - ', '')}';
 }
 
+/// Exception thrown when there are not enough requests left to perform a metadata request.
 class NotEnoughRequestException implements Exception {
   final String message;
 
@@ -42,6 +46,7 @@ class NotEnoughRequestException implements Exception {
       'NotEnoughRequest - ${message.replaceFirst('NotEnoughRequest - ', '')}';
 }
 
+/// Exception thrown when the provided API key is invalid.
 class KeyValidityException implements Exception {
   final String message;
 
@@ -53,6 +58,7 @@ class KeyValidityException implements Exception {
       'KeyValidityError - ${message.replaceFirst('KeyValidityError - ', '')}';
 }
 
+/// Exception thrown when a requested feature is not implemented.
 class UnImplementedException implements Exception {
   final String message;
 
@@ -63,6 +69,7 @@ class UnImplementedException implements Exception {
       'UnImplemented - ${message.replaceFirst('UnImplemented - ', '')}';
 }
 
+/// Exception thrown when a server error occurs.
 class ServerErrorException implements Exception {
   final String message;
 

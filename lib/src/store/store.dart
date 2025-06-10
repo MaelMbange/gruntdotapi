@@ -1,6 +1,7 @@
 part 'store_ext_1.dart';
 part 'store_ext_2.dart';
 
+/// Represents the in-game store, including its ID and available offerings.
 class Store {
   /// id of the store. - main-hcs-operations(pass)
   final String? id;
